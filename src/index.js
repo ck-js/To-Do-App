@@ -13,3 +13,4 @@ output.appendChild(taskItemsContainer())
 // append task items to task items container
 const taskItemsParent = document.getElementById('task-items-container')
 taskItemsParent.appendChild(createTaskItem())
+// append description component to task item
