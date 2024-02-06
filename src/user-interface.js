@@ -27,10 +27,10 @@ return container;
 }
 // create task item
 function createTaskItem() {
-    const container = document.createElement('div')
-    container.id = 'items-wrapper';
+const taskItemsContainer = document.getElementById(
+    'task-items-container');
 
-    
+
     for (let i = 0;i < taskItemsArray.length; i++) {
         const item = taskItemsArray[i];
     
@@ -53,19 +53,16 @@ function createTaskItem() {
         div3.textContent = item.timeSpent;
 
 
-        
+    
         taskItemElement.appendChild(div)
         taskItemElement.appendChild(div2)
         taskItemElement.appendChild(div3)
-        container.appendChild(taskItemElement)    
-        // div.appendChild(div2)
-        // div2.appendChild(div3)
-        // container.appendChild(createDescriptionComponent())
-        // container.appendChild(addProjectComponent())
+        
+        taskItemsContainer.appendChild(taskItemElement)
     }
     
     
-    return container;
+    return taskItemsContainer;
 }
 
 function createDescriptionComponent(description) {

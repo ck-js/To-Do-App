@@ -6,13 +6,10 @@ body {
     border: 3px solid white;
     height: 600px;
     width: 600px;
-}
-#items-wrapper {
     display: flex;
     flex-direction: column;
-
 }
-.task-item {
+.task-item-element {
     border: 3px solid white;
     height: 100px;
 }
