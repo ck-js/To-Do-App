@@ -2,6 +2,7 @@ import './style.css'
 import {
     taskItemsContainer,
 createTaskItem,
+startStopButton,
 
 } from './user-interface'
 
@@ -11,6 +12,7 @@ createTaskItem,
 const output = document.getElementById('output')
 output.appendChild(taskItemsContainer())
 // append task items to task items container
-const taskItemsParent = document.getElementById('task-items-container')
-taskItemsParent.append(createTaskItem())
-// append description component to task item
+output.appendChild(createTaskItem())
+// append start stop button to body 
+output.appendChild(startStopButton())
+

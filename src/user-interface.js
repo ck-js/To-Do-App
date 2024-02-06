@@ -23,15 +23,15 @@ function taskItemsContainer() {
     const container = document.createElement('div')
     container.id = 'task-items-container'
 
+
+
 return container;
 }
 // create task item
 function createTaskItem() {
 const taskItemsContainer = document.getElementById(
     'task-items-container');
-
-
-    for (let i = 0;i < taskItemsArray.length; i++) {
+   for (let i = 0;i < taskItemsArray.length; i++) {
         const item = taskItemsArray[i];
     
         const taskItemElement = document.createElement('div');
@@ -52,53 +52,65 @@ const taskItemsContainer = document.getElementById(
         div3.id = 'task-time-spent';
         div3.textContent = item.timeSpent;
 
-
-    
         taskItemElement.appendChild(div)
         taskItemElement.appendChild(div2)
         taskItemElement.appendChild(div3)
         
         taskItemsContainer.appendChild(taskItemElement)
     }
-    
-    
+        
     return taskItemsContainer;
 }
 
-function createDescriptionComponent(description) {
-const container = document.createElement('div');
-container.classList.add('task-description');
-for (let i = 0; i < taskItemsArray.length; i++) {
-    const item = taskItemsArray[i];
+// function createDescriptionComponent(description) {
+// const container = document.createElement('div');
+// container.classList.add('task-description');
+// for (let i = 0; i < taskItemsArray.length; i++) {
+//     const item = taskItemsArray[i];
     
-    const div = document.createElement('div');
-div.textContent = item.description;
+//     const div = document.createElement('div');
+// div.textContent = item.description;
 
-container.appendChild(div)
+// container.appendChild(div)
     
-}
-return container;
-}
-// add project component to task item cntainer
-function addProjectComponent(project){
-    const container = document.createElement('div');
-    container.classList.add('task-project');
-    for (let i = 0; i < taskItemsArray.length; i++) {
-        const item = taskItemsArray[i];
+// }
+// return container;
+// }
+// // add project component to task item cntainer
+// function addProjectComponent(project){
+//     const container = document.createElement('div');
+//     container.classList.add('task-project');
+//     for (let i = 0; i < taskItemsArray.length; i++) {
+//         const item = taskItemsArray[i];
         
-        const div = document.createElement('div');
-    div.textContent = item.project;
+//         const div = document.createElement('div');
+//     div.textContent = item.project;
     
-    container.appendChild(div)
+//     container.appendChild(div)
         
-    }
-    return container;
-    }
+//     }
+//     return container;
+//     }
+
+// create start and stop button component
+function startStopButton() {
+    const button = document.createElement('div');
+    button.id = 'start-stop-button';
+const h3 = document.createElement('h3')
+h3.textContent = 'Start';
+
+button.appendChild(h3)
+
+    return button;
+}
+
+
+
 
 export {
 taskItemsContainer,
 createTaskItem,
-createDescriptionComponent,
+startStopButton,
 
 
 }
