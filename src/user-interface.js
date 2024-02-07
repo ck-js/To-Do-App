@@ -104,7 +104,45 @@ button.appendChild(h3)
     return button;
 }
 
+// create form modal
+function createFormModall() {
+    const modal = document.createElement('modal')
+modal.classList.add('modal')
+modal.id = 'modal';
 
+const modalContent = document.createElement('div')
+modalContent.classList.add('modal-content')
+
+const close = document.createElement('span');
+close.classList.add('close')
+close.textContent = '&times;';
+
+const h2 = document.createElement('h2')
+h2.innerHTML = 'New Task';
+
+const form = document.createElement('form');
+const label1 = document.createElement('label')
+ label1.for = 'description';
+label1.textContent = 'Description';
+const input1 = document.createElement('input');
+input1.type = 'text';
+input1.id = 'description';
+
+
+// append elements start from lowest child
+
+
+modal.appendChild(modalContent)
+modalContent.appendChild(close);
+modalContent.appendChild(h2);
+modalContent.appendChild(form);
+form.appendChild(label1);
+form.appendChild(input1)
+
+
+
+return modal;
+}
 
 
 
@@ -114,6 +152,9 @@ export {
 taskItemsContainer,
 createTaskItem,
 startStopButton,
+createFormModall,
+
+
 
 
 }
