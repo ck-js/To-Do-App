@@ -104,14 +104,14 @@ button.appendChild(h3)
     return button;
 }
 
-// create form modal
-function createFormModall() {
-    const modal = document.createElement('modal')
-modal.classList.add('modal')
-modal.id = 'modal';
+// create form dialog
+function createFormDialog() {
+    const dialog = document.createElement('dialog')
+dialog.classList.add('dialog')
+dialog.id = 'dialog';
 
-const modalContent = document.createElement('div')
-modalContent.classList.add('modal-content')
+const dialogContent = document.createElement('div')
+dialogContent.classList.add('dialog-content')
 
 const close = document.createElement('span');
 close.classList.add('close')
@@ -128,21 +128,61 @@ const input1 = document.createElement('input');
 input1.type = 'text';
 input1.id = 'description';
 
+const label2 = document.createElement('label');
+  label2.for = 'project';
+  label2.textContent = 'Project';
+  const input2 = document.createElement('input');
+  input2.id = 'project';
+
+
 
 // append elements start from lowest child
-
-
-modal.appendChild(modalContent)
-modalContent.appendChild(close);
-modalContent.appendChild(h2);
-modalContent.appendChild(form);
+dialog.appendChild(dialogContent)
+dialogContent.appendChild(close);
+dialogContent.appendChild(h2);
+dialogContent.appendChild(form);
 form.appendChild(label1);
 form.appendChild(input1)
+form.appendChild(label2);
+form.appendChild(input2)
 
 
-
-return modal;
+return dialog;
 }
+// function to create label text input pairs
+function createLabelTextInputPair(forAttribute) {
+    const label = document.createElement('label');
+  label.for = forAttribute;
+  label.textContent = forAttribute;
+  const input = document.createElement('input');
+  input.id = forAttribute;
+
+label.append(input)
+
+return label;
+
+
+
+
+}
+
+
+
+
+
+// function to create and open form dialog
+function openFormDialog() {
+    const dialog = document.getElementById('dialog')
+    dialog.showModal()
+    return dialog;
+}
+function closeDialog() {
+    const dialog = document.getElementById('dialog')
+    dialog.close()
+
+}
+
+
 
 
 
@@ -152,7 +192,8 @@ export {
 taskItemsContainer,
 createTaskItem,
 startStopButton,
-createFormModall,
+createFormDialog,
+openFormDialog,
 
 
 

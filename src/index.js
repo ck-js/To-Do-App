@@ -3,7 +3,8 @@ import {
     taskItemsContainer,
 createTaskItem,
 startStopButton,
-createFormModall,
+createFormDialog,
+openFormDialog,
 
 
 } from './user-interface'
@@ -17,14 +18,16 @@ output.appendChild(taskItemsContainer())
 output.appendChild(createTaskItem())
 // append start stop button to body 
 output.appendChild(startStopButton())
-output.appendChild(createFormModall())
+
+
 
 // click event listener for start button
 const btn = document.getElementById('start-stop-button')
 btn.addEventListener('click', handleClick)
 
 function handleClick() {
-    createFormModall();
+    output.appendChild(createFormDialog())
+    openFormDialog();
 }
 
 
