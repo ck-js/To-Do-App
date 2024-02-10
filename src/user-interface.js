@@ -1,38 +1,45 @@
+
 // get the current time in hours and minutes
 const now = new Date();
 const currentHour = now.getHours();
 const currentMinute = now.getMinutes();
+function getCurrentHourAndMinute() {
+    const currentHourAndMinute = currentHour + ':' + currentMinute;
+
+    return currentHourAndMinute;
+}
+
+
+
 // array to store task item elements
-let taskItemsArray = [
-    {
-        description: 'build task item component',
-        project: 'Javascript',
-        timeSpent: currentHour + ':' + currentMinute,
+// let taskItemsArray = [
+//     {
+//         description: 'build task item component',
+//         project: 'Javascript',
+//         timeSpent: currentHour + ':' + currentMinute,
 
-    },
-        {
-            description: 'build to do task app',
-            project: 'Javascript',
-            timeSpent: currentHour + ':' + currentMinute,
-        }
+//     },
+//         {
+//             description: 'build to do task app',
+//             project: 'Javascript',
+//             timeSpent: currentHour + ':' + currentMinute,
+//         }
 
-];
+// ];
 
 // create task items container 
 function taskItemsContainer() {
     const container = document.createElement('div')
     container.id = 'task-items-container'
 
-
-
 return container;
 }
 // create task item
-function createTaskItem() {
+function createTaskItem(array) {
 const taskItemsContainer = document.getElementById(
     'task-items-container');
-   for (let i = 0;i < taskItemsArray.length; i++) {
-        const item = taskItemsArray[i];
+   for (let i = 0;i < array.length; i++) {
+        const item = array[i];
     
         const taskItemElement = document.createElement('div');
         taskItemElement.classList.add('task-item-element')
@@ -121,19 +128,19 @@ const h2 = document.createElement('h2')
 h2.innerHTML = 'New Task';
 
 const form = document.createElement('form');
-const label1 = document.createElement('label')
- label1.for = 'description';
-label1.textContent = 'Description';
-const input1 = document.createElement('input');
-input1.type = 'text';
-input1.id = 'description';
 
-const label2 = document.createElement('label');
-  label2.for = 'project';
-  label2.textContent = 'Project';
-  const input2 = document.createElement('input');
-  input2.id = 'project';
+const label1 = createLabel('description', 'Deez asian nutz');
+const input1 = createInput('description', 'text')
 
+
+const label2 = createLabel('project','Project');
+const input2 = createInput('project','text');
+
+const label3 = createLabel('time-spent','Time Spent')
+const input3 = createInput('time-spent', 'text')
+
+const submit = createInput('subnit','submit');
+submit.value = 'Done';
 
 
 // append elements start from lowest child
@@ -145,30 +152,26 @@ form.appendChild(label1);
 form.appendChild(input1)
 form.appendChild(label2);
 form.appendChild(input2)
-
+form.appendChild(label3);
+form.appendChild(input3)
+form.appendChild(submit)
 
 return dialog;
 }
-// function to create label text input pairs
-function createLabelTextInputPair(forAttribute) {
-    const label = document.createElement('label');
-  label.for = forAttribute;
-  label.textContent = forAttribute;
-  const input = document.createElement('input');
-  input.id = forAttribute;
-
-label.append(input)
+function createLabel(forAttribute,textContent) {
+    const label = document.createElement('label')
+    label.for = forAttribute;
+label.textContent = textContent;
 
 return label;
-
-
-
-
 }
+function createInput(idAttribute,typeAttribute){
+const input = document.createElement('input')
+input.id = idAttribute;
+input.typ = typeAttribute;
 
-
-
-
+return input; 
+}
 
 // function to create and open form dialog
 function openFormDialog() {
@@ -187,15 +190,18 @@ function closeDialog() {
 
 
 
-
 export {
+    // taskItemsArray,
 taskItemsContainer,
 createTaskItem,
 startStopButton,
 createFormDialog,
 openFormDialog,
+// getCurrentHourAndMinute,
 
 
 
 
 }
+
+

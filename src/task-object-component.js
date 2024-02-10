@@ -5,7 +5,7 @@ constructor(description,project,startTime) {
     this.startTime = startTime
 }    
 }
-let allTasksArray = [];
+
 
 function createTask(description,project,startTime) {
     const task = new Task(description,project,startTime)
@@ -16,5 +16,12 @@ function addTaskToAllTasksArray(object) {
     allTasksArray.push(object)
 }
 
-createTask('Blablah', 'JS', new Date())
-console.log(allTasksArray);
+
+export {
+    
+createTask,
+addTaskToAllTasksArray,
+
+
+
+}
