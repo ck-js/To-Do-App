@@ -9,18 +9,18 @@ constructor(description,project,startTime) {
 
 function createTask(description,project,startTime) {
     const task = new Task(description,project,startTime)
-    addTaskToAllTasksArray(task)
+    
     return task
 }
-function addTaskToAllTasksArray(object) {
-    allTasksArray.push(object)
+function addTaskToAnArray(object, arrayName) {
+    arrayName.push(object)
 }
 
 
 export {
-    
+
 createTask,
-addTaskToAllTasksArray,
+addTaskToAnArray,
 
 
 

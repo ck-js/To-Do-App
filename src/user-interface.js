@@ -69,36 +69,6 @@ const taskItemsContainer = document.getElementById(
     return taskItemsContainer;
 }
 
-// function createDescriptionComponent(description) {
-// const container = document.createElement('div');
-// container.classList.add('task-description');
-// for (let i = 0; i < taskItemsArray.length; i++) {
-//     const item = taskItemsArray[i];
-    
-//     const div = document.createElement('div');
-// div.textContent = item.description;
-
-// container.appendChild(div)
-    
-// }
-// return container;
-// }
-// // add project component to task item cntainer
-// function addProjectComponent(project){
-//     const container = document.createElement('div');
-//     container.classList.add('task-project');
-//     for (let i = 0; i < taskItemsArray.length; i++) {
-//         const item = taskItemsArray[i];
-        
-//         const div = document.createElement('div');
-//     div.textContent = item.project;
-    
-//     container.appendChild(div)
-        
-//     }
-//     return container;
-//     }
-
 // create start and stop button component
 function startStopButton() {
     const button = document.createElement('div');
@@ -184,7 +154,23 @@ function closeDialog() {
     dialog.close()
 
 }
+// function to remove task items from container
+function removeTaskItemsFromContainer() {
+const container = document.getElementById('task-items-container')
 
+for (let i = container.children.length -1; i >= 0; i--) {
+const child = container.children[i];
+container.removeChild(child)
+
+}
+}
+// function to update the tasks container elements
+function updateTasksContainer(arrayName) {
+const update = output.appendChild(createTaskItem(arrayName))
+
+return update;
+
+}
 
 
 
@@ -197,11 +183,10 @@ createTaskItem,
 startStopButton,
 createFormDialog,
 openFormDialog,
-// getCurrentHourAndMinute,
-
+getCurrentHourAndMinute,
+removeTaskItemsFromContainer,
+updateTasksContainer,
 
 
 
 }
-
-
