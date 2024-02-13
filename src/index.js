@@ -10,13 +10,14 @@ getCurrentHourAndMinute,
 removeTaskItemsFromContainer,
 updateTaskElements,
 updateTasksContainer,
+closeDialog,
 
 
 } from './user-interface'
 
 // import object related modules
 import {
-createTask,
+createTaskObject,
     addTaskToAnArray,
     
 
@@ -41,49 +42,55 @@ let allTasksArray = [
 
 
 
-
-
 // all dom related functions go here
 // append task items container to output
 const output = document.getElementById('output')
 output.appendChild(taskItemsContainer())
 // append task items to task items container
 output.appendChild(createTaskItem(allTasksArray))
+// append form to html
+output.appendChild(createFormDialog())
 // append start stop button to body 
 output.appendChild(startStopButton())
 
 // click event listener for start button
-const btn = document.getElementById('start-stop-button')
-btn.addEventListener('click', handleClick)
+const startBtn = document.getElementById('start-stop-button')
+startBtn.addEventListener('click', handleClick)
 
 function handleClick() {
-    output.appendChild(createFormDialog())
     openFormDialog();
-    removeTaskItemsFromContainer();
     
-    const task = createTask('Dynamically generated','', getCurrentHourAndMinute());
-    addTaskToAnArray(task, allTasksArray)
-
-        updateTasksContainer(allTasksArray)
-
-
-
-    console.log(allTasksArray);
 }
 
 // function to handle form submit
+document.addEventListener("DOMContentLoaded", () => {
+
 function handleFormSubmit(event) {
     event.preventDefault();
     
+    removeTaskItemsFromContainer();
+    
     // get form input values
-    const description = document.getElementById('description').value;
-    const project = document.getElementById('project').value;
+    const input1 = document.getElementById('description');
+    const description = input1.value;
+    const input2 = document.getElementById('project');
+    const project = input2.value;
+    const startTime = getCurrentHourAndMinute();
+
+// create new task object
+const task = createTaskObject(description,project, startTime)
+addTaskToAnArray(task,allTasksArray)
     
-    // create new task objects with form input values
-    // const taskObject = new Task(description,project)
-    // addTaskToAllTasksArray(taskObject)
-    
-    
-    
+    updateTasksContainer(allTasksArray)
+
+
+input1.value = '';
+input2.value = '';
+
+
+closeDialog();
+console.log(allTasksArray);
     }
+  document.getElementById('my-form').addEventListener("submit", handleFormSubmit)
     
+})

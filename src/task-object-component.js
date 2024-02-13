@@ -1,13 +1,13 @@
 class Task {
-constructor(description,project,startTime) {
+constructor(description,project,timeSpent) {
     this.description = description
     this.project = project
-    this.startTime = startTime
+    this.timeSpent = timeSpent
 }    
 }
 
 
-function createTask(description,project,startTime) {
+function createTaskObject(description,project,startTime) {
     const task = new Task(description,project,startTime)
     
     return task
@@ -19,7 +19,7 @@ function addTaskToAnArray(object, arrayName) {
 
 export {
 
-createTask,
+createTaskObject,
 addTaskToAnArray,
 
 

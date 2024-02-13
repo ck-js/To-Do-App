@@ -43,6 +43,7 @@ const taskItemsContainer = document.getElementById(
     
         const taskItemElement = document.createElement('div');
         taskItemElement.classList.add('task-item-element')
+        taskItemElement.id = i +1;
 
         const div = document.createElement('div');
         div.classList.add('task-item');
@@ -98,7 +99,7 @@ const h2 = document.createElement('h2')
 h2.innerHTML = 'New Task';
 
 const form = document.createElement('form');
-
+form.id = 'my-form'
 const label1 = createLabel('description', 'Deez asian nutz');
 const input1 = createInput('description', 'text')
 
@@ -106,11 +107,17 @@ const input1 = createInput('description', 'text')
 const label2 = createLabel('project','Project');
 const input2 = createInput('project','text');
 
-const label3 = createLabel('time-spent','Time Spent')
-const input3 = createInput('time-spent', 'text')
+// const label3 = createLabel('time-spent','Time Spent')
+// const input3 = createInput('time-spent', 'text')
+const input3 = document.createElement('span')
+input3.id = 'start-time'
 
-const submit = createInput('subnit','submit');
-submit.value = 'Done';
+
+
+const submit = document.createElement('button')
+submit.type = 'submit';
+submit.id = 'submit-button';
+submit.textContent = 'Done'
 
 
 // append elements start from lowest child
@@ -122,7 +129,7 @@ form.appendChild(label1);
 form.appendChild(input1)
 form.appendChild(label2);
 form.appendChild(input2)
-form.appendChild(label3);
+// form.appendChild(label3);
 form.appendChild(input3)
 form.appendChild(submit)
 
@@ -186,6 +193,7 @@ openFormDialog,
 getCurrentHourAndMinute,
 removeTaskItemsFromContainer,
 updateTasksContainer,
+closeDialog,
 
 
 
