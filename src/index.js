@@ -94,3 +94,28 @@ console.log(allTasksArray);
   document.getElementById('my-form').addEventListener("submit", handleFormSubmit)
     
 })
+
+
+// event listener and handler for updating task elements
+document.addEventListener("DOMContentLoaded", () => {
+// get the task item elements
+const taskElements = document.getElementsByClassName('task-item-element')
+// loop through task elements 
+for (let i = 0; i < taskElements.length; i++) {
+const taskElement = taskElements[i];
+taskElement.addEventListener("click", (event) => {
+    const parentId = event.target.parentNode.id;
+    alert(parentId)
+
+})
+
+
+    
+}
+
+})
+
+
+
+
+
