@@ -16,11 +16,27 @@ function addTaskToAnArray(object, arrayName) {
     arrayName.push(object)
 }
 
+function createArrayFactory() {
+    const array = [];
+
+    function getArray() {
+        return array;
+    }
+    function addItem(item) {
+        array.push(item);
+    }
+return {
+    getArray,
+    addItem
+};
+}
+
 
 export {
 
 createTaskObject,
 addTaskToAnArray,
+createArrayFactory
 
 
 

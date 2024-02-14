@@ -1,3 +1,8 @@
+import {
+    createTaskObject,
+addTaskToAnArray,
+} from './task-object-component';
+
 
 // get the current time in hours and minutes
 const now = new Date();
@@ -9,23 +14,18 @@ function getCurrentHourAndMinute() {
     return currentHourAndMinute;
 }
 
+// click event listener for start button
+function startBtnEventHandler() {
+const startBtn = document.getElementById('start-stop-button')
+    startBtn.addEventListener('click', () => {
+    openFormDialog();
+    
+    })
+    }
 
 
-// array to store task item elements
-// let taskItemsArray = [
-//     {
-//         description: 'build task item component',
-//         project: 'Javascript',
-//         timeSpent: currentHour + ':' + currentMinute,
 
-//     },
-//         {
-//             description: 'build to do task app',
-//             project: 'Javascript',
-//             timeSpent: currentHour + ':' + currentMinute,
-//         }
 
-// ];
 
 // create task items container 
 function taskItemsContainer() {
@@ -156,6 +156,7 @@ function openFormDialog() {
     dialog.showModal()
     return dialog;
 }
+
 function closeDialog() {
     const dialog = document.getElementById('dialog')
     dialog.close()
@@ -183,8 +184,12 @@ return update;
 
 
 
+
+
+
+
 export {
-    // taskItemsArray,
+    startBtnEventHandler,
 taskItemsContainer,
 createTaskItem,
 startStopButton,
