@@ -25,15 +25,30 @@ function createArrayFactory() {
     function addItem(item) {
         array.push(item);
     }
+    function downShiftIdToArrayIndex(id) {
+        const element = id;
+        let shiftedId = parseInt((element) -1);
+
+
+return shiftedId;
+
+    }
+function getArrayItem(index) {
+    return array[index]
+}
+
+
 return {
     getArray,
-    addItem
+    addItem,
+    downShiftIdToArrayIndex,
+    getArrayItem,
+
 };
 }
 
 
 export {
-
 createTaskObject,
 addTaskToAnArray,
 createArrayFactory

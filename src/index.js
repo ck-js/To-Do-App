@@ -95,25 +95,28 @@ function submitBtnEventHandler() {
     
     }
 submitBtnEventHandler()
-function test() {
-// event listener and handler for updating task elements
-document.addEventListener("DOMContentLoaded", () => {
-// get the task item elements
-const taskElements = document.getElementsByClassName('task-item-element')
-// loop through task elements 
-for (let i = 0; i < taskElements.length; i++) {
-const taskElement = taskElements[i];
-taskElement.addEventListener("click", (event) => {
-    const parentId = event.target.parentNode.id;
-    alert(parentId)
 
+// event handler for updating task elements
+function updateTaskElementEventHandler() {
+    const parentElement = document.getElementById('task-items-container')
+parentElement.addEventListener('click', (event) => {
+    if (event.target.matches('.task-item')) {
+const task = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+openFormDialog()
+populateFormInputs(task)
+    }
 })
-    
 }
+updateTaskElementEventHandler()
 
-})
+// function to populate form dialog with clicked task
+function populateFormInputs(arrayIndex) {
+let input1 = document.getElementById('description');
+input1.value = allTasksArray.getArrayItem(arrayIndex).description;
+
+let input2 = document.getElementById('project');
+input2.value = allTasksArray.getArrayItem(arrayIndex).project;
+
 
 }
-test()
-
 
