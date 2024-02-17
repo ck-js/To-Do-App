@@ -3,7 +3,16 @@ constructor(description,project,timeSpent) {
     this.description = description
     this.project = project
     this.timeSpent = timeSpent
+    // this.element = document.createElement('div');
+    // this.element.addEventListener('click', this.handleClick.bind(this));
+
 }    
+// handleClick() {
+//     console.log('Object clicked');
+// }
+// addToDom(targetElement) {
+//     targetElement.appendChild(this.element)
+// }
 }
 
 
@@ -18,6 +27,7 @@ function addTaskToAnArray(object, arrayName) {
 
 function createArrayFactory() {
     const array = [];
+    let currentTaskIndex; 
 
     function getArray() {
         return array;
@@ -36,19 +46,32 @@ return shiftedId;
 function getArrayItem(index) {
     return array[index]
 }
+// function to update task object by array index
+// function updateCurrentTaskObject(index) {
+//  array[0].description = 'you changed';
 
+// }
+function setCurrentTaskIndex(index) {
+    currentTaskIndex = index;
+}
+function getCurrentTaskIndex() {
+    return currentTaskIndex;
+}
 
 return {
     getArray,
     addItem,
     downShiftIdToArrayIndex,
     getArrayItem,
+    setCurrentTaskIndex,
+    getCurrentTaskIndex,
 
 };
 }
 
 
 export {
+    
 createTaskObject,
 addTaskToAnArray,
 createArrayFactory

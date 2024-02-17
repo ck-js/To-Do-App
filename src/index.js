@@ -57,7 +57,7 @@ output.appendChild(startStopButton())
 startBtnEventHandler()
 
 // function to handle form submit
-function submitBtnEventHandler() {
+// function submitBtnEventHandler() {
 
     document.addEventListener("DOMContentLoaded", () => {
     
@@ -77,33 +77,67 @@ function submitBtnEventHandler() {
         const task = createTaskObject(description,project, startTime)
         // addTaskToAnArray(task,allTasksArray)
         allTasksArray.addItem(task)
+        alert('creation event handler')
             
             updateTasksContainer(allTasksArray.getArray())
         
-        
         input1.value = '';
-        input2.value = '';
-        
-        
+        input2.value = '';        
+
         closeDialog();
-        // console.log(allTasksArray.getArray());
+        
         
             }
-          document.getElementById('my-form').addEventListener("submit", handleFormSubmit)
+            // event handler for submit update
+            function handleUpdateFormSubmit(event) {
+                event.preventDefault();
+                
+                removeTaskItemsFromContainer();
+                
+                // get form input values
+                const input1 = document.getElementById('description');
+                const description = input1.value;
+                const input2 = document.getElementById('project');
+                const project = input2.value;
+                const startTime = getCurrentHourAndMinute();
             
+// update task object
+const currentTaskIndex = allTasksArray.getCurrentTaskIndex();
+allTasksArray.getArrayItem(currentTaskIndex).description = description;
+alert('update event handler')
+console.log(allTasksArray.getArray());
+        updateTasksContainer(allTasksArray.getArray())
+            
+            input1.value = '';
+            input2.value = '';        
+    
+            closeDialog();
+            
+                }
+
+// write logic to determine which submit event handler to use
+
+    document.getElementById('my-form').addEventListener("submit", handleUpdateFormSubmit)
+    
+
+    document.getElementById('my-form').addEventListener("submit", handleFormSubmit)    
+        
+
         })
     
-    }
-submitBtnEventHandler()
+    // }
+    // submitBtnEventHandler()
 
 // event handler for updating task elements
 function updateTaskElementEventHandler() {
     const parentElement = document.getElementById('task-items-container')
 parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
-const task = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+allTasksArray.setCurrentTaskIndex(currentTask)
 openFormDialog()
-populateFormInputs(task)
+populateFormInputs(currentTask)
+
     }
 })
 }
@@ -117,6 +151,8 @@ input1.value = allTasksArray.getArrayItem(arrayIndex).description;
 let input2 = document.getElementById('project');
 input2.value = allTasksArray.getArrayItem(arrayIndex).project;
 
-
 }
+
+
+
 
