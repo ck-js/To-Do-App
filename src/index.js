@@ -11,6 +11,10 @@ removeTaskItemsFromContainer,
 updateTaskElements,
 updateTasksContainer,
 closeDialog,
+updateFormDialog,
+closeCreateDialog,
+closeUpdateDialog,
+openUpdateFormDialog,
 
 } from './user-interface'
 
@@ -50,26 +54,40 @@ output.appendChild(taskItemsContainer())
 output.appendChild(createTaskItem(allTasksArray.getArray()))
 // append form to html
 output.appendChild(createFormDialog())
+output.appendChild(updateFormDialog())
 // append start stop button to body 
 output.appendChild(startStopButton())
 
 // start btn event handler
 startBtnEventHandler()
 
-// function to handle form submit
-// function submitBtnEventHandler() {
+// event handler for updating task elements
+function updateTaskElementEventHandler() {
+    const parentElement = document.getElementById('task-items-container')
+parentElement.addEventListener('click', (event) => {
+    if (event.target.matches('.task-item')) {
+const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+allTasksArray.setCurrentTaskIndex(currentTask)
 
-    document.addEventListener("DOMContentLoaded", () => {
-    
-        function handleFormSubmit(event) {
+openUpdateFormDialog()
+populateFormInputs(currentTask)
+
+    }
+})
+}
+updateTaskElementEventHandler()
+
+// function to handle form submit
+
+        function handleCreateFormSubmit(event) {
             event.preventDefault();
             
             removeTaskItemsFromContainer();
             
             // get form input values
-            const input1 = document.getElementById('description');
+            const input1 = document.getElementById('create-description');
             const description = input1.value;
-            const input2 = document.getElementById('project');
+            const input2 = document.getElementById('create-project');
             const project = input2.value;
             const startTime = getCurrentHourAndMinute();
         
@@ -84,73 +102,55 @@ startBtnEventHandler()
         input1.value = '';
         input2.value = '';        
 
-        closeDialog();
-        
-        
+        closeCreateDialog();
+                
             }
+        
+
             // event handler for submit update
             function handleUpdateFormSubmit(event) {
                 event.preventDefault();
-                
+            
                 removeTaskItemsFromContainer();
                 
                 // get form input values
-                const input1 = document.getElementById('description');
+                const input1 = document.getElementById('update-description');
                 const description = input1.value;
-                const input2 = document.getElementById('project');
+                const input2 = document.getElementById('update-project');
                 const project = input2.value;
                 const startTime = getCurrentHourAndMinute();
             
 // update task object
 const currentTaskIndex = allTasksArray.getCurrentTaskIndex();
 allTasksArray.getArrayItem(currentTaskIndex).description = description;
+allTasksArray.getArrayItem(currentTaskIndex).project = project;
 alert('update event handler')
-console.log(allTasksArray.getArray());
+
         updateTasksContainer(allTasksArray.getArray())
             
             input1.value = '';
             input2.value = '';        
     
-            closeDialog();
+            closeUpdateDialog();
             
                 }
 
 // write logic to determine which submit event handler to use
-
-    document.getElementById('my-form').addEventListener("submit", handleUpdateFormSubmit)
     
-
-    document.getElementById('my-form').addEventListener("submit", handleFormSubmit)    
-        
-
-        })
+    const createForm =document.getElementById('create-form');
+    createForm.addEventListener("submit", handleCreateFormSubmit)    
+    const updateForm = document.getElementById('update-form');
+updateForm.addEventListener("submit", handleUpdateFormSubmit)
     
-    // }
-    // submitBtnEventHandler()
-
-// event handler for updating task elements
-function updateTaskElementEventHandler() {
-    const parentElement = document.getElementById('task-items-container')
-parentElement.addEventListener('click', (event) => {
-    if (event.target.matches('.task-item')) {
-const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
-allTasksArray.setCurrentTaskIndex(currentTask)
-openFormDialog()
-populateFormInputs(currentTask)
-
-    }
-})
-}
-updateTaskElementEventHandler()
-
 // function to populate form dialog with clicked task
 function populateFormInputs(arrayIndex) {
-let input1 = document.getElementById('description');
+let input1 = document.getElementById('update-description');
 input1.value = allTasksArray.getArrayItem(arrayIndex).description;
 
-let input2 = document.getElementById('project');
+let input2 = document.getElementById('update-project');
 input2.value = allTasksArray.getArrayItem(arrayIndex).project;
 
+console.log(allTasksArray.getArray());
 }
 
 

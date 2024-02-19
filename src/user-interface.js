@@ -18,14 +18,10 @@ function getCurrentHourAndMinute() {
 function startBtnEventHandler() {
 const startBtn = document.getElementById('start-stop-button')
     startBtn.addEventListener('click', () => {
-    openFormDialog();
+    openCreateFormDialog();
     
     })
     }
-
-
-
-
 
 // create task items container 
 function taskItemsContainer() {
@@ -86,7 +82,7 @@ button.appendChild(h3)
 function createFormDialog() {
     const dialog = document.createElement('dialog')
 dialog.classList.add('dialog')
-dialog.id = 'dialog';
+dialog.id = 'create-dialog';
 
 const dialogContent = document.createElement('div')
 dialogContent.classList.add('dialog-content')
@@ -99,26 +95,20 @@ const h2 = document.createElement('h2')
 h2.innerHTML = 'New Task';
 
 const form = document.createElement('form');
-form.id = 'my-form'
-const label1 = createLabel('description', 'Deez asian nutz');
-const input1 = createInput('description', 'text')
+form.id = 'create-form'
+const label1 = createLabel('create-description', 'Deez asian nutz');
+const input1 = createInput('create-description', 'text')
 
+const label2 = createLabel('create-project','Project');
+const input2 = createInput('create-project','text');
 
-const label2 = createLabel('project','Project');
-const input2 = createInput('project','text');
-
-// const label3 = createLabel('time-spent','Time Spent')
-// const input3 = createInput('time-spent', 'text')
 const input3 = document.createElement('span')
-input3.id = 'start-time'
-
-
+input3.id = 'create-start-time'
 
 const submit = document.createElement('button')
 submit.type = 'submit';
-submit.id = 'submit-button';
+submit.id = 'create-submit-button';
 submit.textContent = 'Done'
-
 
 // append elements start from lowest child
 dialog.appendChild(dialogContent)
@@ -135,9 +125,60 @@ form.appendChild(submit)
 
 return dialog;
 }
+
+// update form dialog
+function updateFormDialog() {
+    const dialog = document.createElement('dialog')
+dialog.classList.add('dialog')
+dialog.id = 'update-dialog';
+
+const dialogContent = document.createElement('div')
+dialogContent.classList.add('dialog-content')
+
+const close = document.createElement('span');
+close.classList.add('close')
+close.textContent = '&times;';
+
+const h2 = document.createElement('h2')
+h2.innerHTML = 'Update Task';
+
+const form = document.createElement('form');
+form.id = 'update-form'
+const label1 = createLabel('update-description', 'Deez asian nutz');
+const input1 = createInput('update-description', 'text')
+
+const label2 = createLabel('update-project','Project');
+const input2 = createInput('update-project','text');
+
+const input3 = document.createElement('span')
+input3.id = 'update-start-time'
+
+const submit = document.createElement('button')
+submit.type = 'submit';
+submit.id = 'update-submit-button';
+submit.textContent = 'Done'
+
+// append elements start from lowest child
+dialog.appendChild(dialogContent)
+dialogContent.appendChild(close);
+dialogContent.appendChild(h2);
+dialogContent.appendChild(form);
+form.appendChild(label1);
+form.appendChild(input1)
+form.appendChild(label2);
+form.appendChild(input2)
+// form.appendChild(label3);
+form.appendChild(input3)
+form.appendChild(submit)
+
+return dialog;
+}
+
+
+
 function createLabel(forAttribute,textContent) {
     const label = document.createElement('label')
-    label.for = forAttribute;
+    label.htmlFor = forAttribute;
 label.textContent = textContent;
 
 return label;
@@ -151,17 +192,25 @@ return input;
 }
 
 // function to create and open form dialog
-function openFormDialog() {
-    const dialog = document.getElementById('dialog')
+function openCreateFormDialog() {
+    const dialog = document.getElementById('create-dialog')
     dialog.showModal()
     return dialog;
 }
-
-function closeDialog() {
-    const dialog = document.getElementById('dialog')
-    dialog.close()
-
+function openUpdateFormDialog() {
+    const dialog = document.getElementById('update-dialog')
+    dialog.showModal()
+    return dialog;
 }
+function closeCreateDialog() {
+    const dialog = document.getElementById('create-dialog')
+    dialog.close()
+}
+function closeUpdateDialog() {
+    const dialog = document.getElementById('update-dialog')
+    dialog.close()
+}
+
 // function to remove task items from container
 function removeTaskItemsFromContainer() {
 const container = document.getElementById('task-items-container')
@@ -194,11 +243,14 @@ taskItemsContainer,
 createTaskItem,
 startStopButton,
 createFormDialog,
-openFormDialog,
+updateFormDialog,
+openCreateFormDialog,
+openUpdateFormDialog,
+closeCreateDialog,
+closeUpdateDialog,
 getCurrentHourAndMinute,
 removeTaskItemsFromContainer,
 updateTasksContainer,
-closeDialog,
 
 
 
