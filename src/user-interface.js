@@ -90,6 +90,7 @@ dialogContent.classList.add('dialog-content')
 const close = document.createElement('span');
 close.classList.add('close')
 close.textContent = '&times;';
+close.id = 'create-close';
 
 const h2 = document.createElement('h2')
 h2.innerHTML = 'New Task';
@@ -138,6 +139,12 @@ dialogContent.classList.add('dialog-content')
 const close = document.createElement('span');
 close.classList.add('close')
 close.textContent = '&times;';
+close.id = 'update-close';
+
+const remove = document.createElement('span');
+remove.classList.add('delete')
+remove.textContent = 'Delete';
+remove.id = 'update-delete';
 
 const h2 = document.createElement('h2')
 h2.innerHTML = 'Update Task';
@@ -161,6 +168,7 @@ submit.textContent = 'Done'
 // append elements start from lowest child
 dialog.appendChild(dialogContent)
 dialogContent.appendChild(close);
+dialogContent.appendChild(remove);
 dialogContent.appendChild(h2);
 dialogContent.appendChild(form);
 form.appendChild(label1);

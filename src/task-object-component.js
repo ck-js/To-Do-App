@@ -39,9 +39,7 @@ function createArrayFactory() {
         const element = id;
         let shiftedId = parseInt((element) -1);
 
-
 return shiftedId;
-
     }
 function getArrayItem(index) {
     return array[index]
@@ -58,6 +56,13 @@ function getCurrentTaskIndex() {
     return currentTaskIndex;
 }
 
+function deleteTaskObject(index) {
+    if (index >= 0 && index < array.length) {
+        array.splice(index, 1)
+    }
+}
+
+
 return {
     getArray,
     addItem,
@@ -65,6 +70,7 @@ return {
     getArrayItem,
     setCurrentTaskIndex,
     getCurrentTaskIndex,
+    deleteTaskObject,
 
 };
 }

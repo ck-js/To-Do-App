@@ -135,8 +135,8 @@ alert('update event handler')
             
                 }
 
-// write logic to determine which submit event handler to use
-    
+
+// attatch event listener and handler to create and update form submit    
     const createForm =document.getElementById('create-form');
     createForm.addEventListener("submit", handleCreateFormSubmit)    
     const updateForm = document.getElementById('update-form');
@@ -153,6 +153,33 @@ input2.value = allTasksArray.getArrayItem(arrayIndex).project;
 console.log(allTasksArray.getArray());
 }
 
+// event handler for closing create form dialog
+function closeCreateFormDialog() {
+    const element = document.getElementById('create-close');
+    element.addEventListener('click', () => {
+closeCreateDialog();
+    })
+}
+closeCreateFormDialog();
+
+// event handler for closing update form dialog
+function closeUpdateFormDialog() {
+    const element = document.getElementById('update-close');
+    element.addEventListener('click', () => {
+closeUpdateDialog();
+    })
+}
+closeUpdateFormDialog();
+
+// event handler for deleting a task object
+const deleteButton = document.getElementById('update-delete');
+deleteButton.addEventListener('click', (event) => {
+
+    removeTaskItemsFromContainer();
+allTasksArray.deleteTaskObject(1)
+
+updateTasksContainer(allTasksArray.getArray())
 
 
 
+})
