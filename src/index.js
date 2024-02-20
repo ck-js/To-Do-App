@@ -61,7 +61,7 @@ output.appendChild(startStopButton())
 // start btn event handler
 startBtnEventHandler()
 
-// event handler for updating task elements
+// event handler for initiating updating task elements
 function updateTaskElementEventHandler() {
     const parentElement = document.getElementById('task-items-container')
 parentElement.addEventListener('click', (event) => {
@@ -176,10 +176,12 @@ const deleteButton = document.getElementById('update-delete');
 deleteButton.addEventListener('click', (event) => {
 
     removeTaskItemsFromContainer();
-allTasksArray.deleteTaskObject(1)
+    const currentTask = allTasksArray.getCurrentTaskIndex();
+
+allTasksArray.deleteTaskObject(currentTask)
 
 updateTasksContainer(allTasksArray.getArray())
-
+closeUpdateDialog()
 
 
 })
