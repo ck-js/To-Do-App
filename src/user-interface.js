@@ -1,4 +1,11 @@
 import {
+     formatDistance,
+      subDays 
+    } from "date-fns";
+
+
+import {
+    Stopwatch,
     createTaskObject,
 addTaskToAnArray,
 } from './task-object-component';
@@ -9,9 +16,20 @@ const now = new Date();
 const currentHour = now.getHours();
 const currentMinute = now.getMinutes();
 function getCurrentHourAndMinute() {
-    const currentHourAndMinute = currentHour + ':' + currentMinute;
+    // const currentHourAndMinute = formatDistance(subDays(new Date(),6), new Date(), {addSuffix: true});
+// return currentHourAndMinute;
+const stopwatch = new Stopwatch();
 
-    return currentHourAndMinute;
+const start = stopwatch.start();
+
+setTimeout(() => {
+    stopwatch.stop();
+    const elapsed = stopwatch.elapsed();
+    console.log(elapsed);
+}, 4000);
+console.log(start);
+return start;
+
 }
 
 // click event listener for start button

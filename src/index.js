@@ -183,5 +183,4 @@ allTasksArray.deleteTaskObject(currentTask)
 updateTasksContainer(allTasksArray.getArray())
 closeUpdateDialog()
 
-
 })
