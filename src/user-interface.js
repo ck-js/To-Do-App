@@ -18,17 +18,17 @@ const currentMinute = now.getMinutes();
 function getCurrentHourAndMinute() {
     // const currentHourAndMinute = formatDistance(subDays(new Date(),6), new Date(), {addSuffix: true});
 // return currentHourAndMinute;
-const stopwatch = new Stopwatch();
+// const stopwatch = new Stopwatch();
 
-const start = stopwatch.start();
+// const start = stopwatch.start();
 
-setTimeout(() => {
-    stopwatch.stop();
-    const elapsed = stopwatch.elapsed();
-    console.log(elapsed);
-}, 4000);
-console.log(start);
-return start;
+// setTimeout(() => {
+//     stopwatch.stop();
+//     const elapsed = stopwatch.elapsed();
+    
+// }, 4000);
+
+
 
 }
 
@@ -74,9 +74,18 @@ const taskItemsContainer = document.getElementById(
         div3.id = 'task-time-spent';
         div3.textContent = item.timeSpent;
 
+        // div for start and stop button
+        const div4 = document.createElement('div');
+div4.classList.add('task-component')
+div4.id = 'task-start';
+div4.textContent = 'Start';
+
+
+
         taskItemElement.appendChild(div)
         taskItemElement.appendChild(div2)
         taskItemElement.appendChild(div3)
+        taskItemElement.appendChild(div4)
         
         taskItemsContainer.appendChild(taskItemElement)
     }

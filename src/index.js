@@ -73,6 +73,18 @@ openUpdateFormDialog()
 populateFormInputs(currentTask)
 
     }
+    if (event.target.matches('.task-component')) {
+        const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+        allTasksArray.setCurrentTaskIndex(currentTask)
+        // call the current task to start timer
+allTasksArray.start(currentTask)
+
+        console.log(allTasksArray.getArray());
+
+        
+
+        
+    }
 })
 }
 updateTaskElementEventHandler()

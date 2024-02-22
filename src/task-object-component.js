@@ -1,4 +1,4 @@
-import { nextWednesday } from "date-fns";
+
 
 class Stopwatch {
     constructor() {
@@ -29,7 +29,29 @@ constructor(description,project,timeSpent) {
     this.description = description
     this.project = project
     this.timeSpent = timeSpent
+    this.startTime = null;
+    this.endTime = null;
+
     }
+    start() {
+this.startTime = new Date();
+    }
+    stop() {
+        this.endTime = new Date();;
+    }
+    elapsed() {
+        if (!this.startTime) {
+            throw new Error('Stopwatch not yet started!')
+        }
+        if (!this.endTime) {
+            throw new Error('Stopwatch not yet stopped!')
+        }
+        return this.endTime - this.startTime;
+    }
+
+
+
+
 }
 
 function createTaskObject(description,project,startTime) {
@@ -71,6 +93,10 @@ function deleteTaskObject(index) {
         array.splice(index, 1)
     }
 }
+function start(index) {
+    array[index].startTime = new Date();
+    
+}
 
 return {
     getArray,
@@ -80,10 +106,9 @@ return {
     setCurrentTaskIndex,
     getCurrentTaskIndex,
     deleteTaskObject,
-
+start,
 };
 }
-
 
 
 
