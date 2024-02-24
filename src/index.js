@@ -1,3 +1,8 @@
+import {
+format
+} from 'date-fns'
+
+
 import './style.css'
 import {
     startBtnEventHandler,
@@ -33,7 +38,7 @@ allTasksArray.addItem(
             {
             description: 'build task item component',
             project: 'Javascript',
-            timeSpent: getCurrentHourAndMinute(),
+            timeSpent: '00:28:23',
     
         }
 );
@@ -41,10 +46,9 @@ allTasksArray.addItem(
                 {
                 description: 'build to do task app',
                 project: 'Javascript',
-                timeSpent: getCurrentHourAndMinute(),
+                timeSpent: '00:43:22',
             }
 )
-
 
 // all dom related functions go here
 // append task items container to output
@@ -73,17 +77,37 @@ openUpdateFormDialog()
 populateFormInputs(currentTask)
 
     }
-    if (event.target.matches('.task-component')) {
+    if (event.target.matches('.task-component') &&
+    event.target.textContent === 'Stop') {
+
+        removeTaskItemsFromContainer()
+
         const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
         allTasksArray.setCurrentTaskIndex(currentTask)
+event.target.textContent = 'Start'
+
+        // call the current task to stop timer
+allTasksArray.stop(currentTask)
+const elapsedTime = allTasksArray.elapsed(currentTask);
+allTasksArray.getArrayItem(currentTask).timeSpent = elapsedTime;
+
+updateTasksContainer(allTasksArray.getArray())
+
+
+        console.log(allTasksArray.getArray());    
+
+        
+    } else {
+        const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+        allTasksArray.setCurrentTaskIndex(currentTask)
+        
+        event.target.textContent = 'Stop';
+
         // call the current task to start timer
-allTasksArray.start(currentTask)
-
-        console.log(allTasksArray.getArray());
-
+        allTasksArray.start(currentTask)
         
 
-        
+        console.log(allTasksArray.getArray());    
     }
 })
 }
@@ -130,12 +154,13 @@ updateTaskElementEventHandler()
                 const description = input1.value;
                 const input2 = document.getElementById('update-project');
                 const project = input2.value;
-                const startTime = getCurrentHourAndMinute();
+                
             
 // update task object
 const currentTaskIndex = allTasksArray.getCurrentTaskIndex();
 allTasksArray.getArrayItem(currentTaskIndex).description = description;
 allTasksArray.getArrayItem(currentTaskIndex).project = project;
+
 alert('update event handler')
 
         updateTasksContainer(allTasksArray.getArray())

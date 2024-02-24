@@ -11,6 +11,7 @@ addTaskToAnArray,
 } from './task-object-component';
 
 
+
 // get the current time in hours and minutes
 const now = new Date();
 const currentHour = now.getHours();
@@ -28,7 +29,7 @@ function getCurrentHourAndMinute() {
     
 // }, 4000);
 
-
+return 'hello and goodbye depricated'
 
 }
 

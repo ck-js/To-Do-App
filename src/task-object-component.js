@@ -95,8 +95,23 @@ function deleteTaskObject(index) {
 }
 function start(index) {
     array[index].startTime = new Date();
+
+}
+function stop(index) {
+    array[index].endTime = new Date();
     
 }
+function elapsed(index) {
+    if (!array[index].startTime) {
+        throw new Error('Stopwatch not yet started!')
+    }
+    if (!array[index].endTime) {
+        throw new Error('Stopwatch not yet stopped!')
+    }
+    return array[index].endTime - array[index].startTime;
+}
+
+
 
 return {
     getArray,
@@ -107,6 +122,8 @@ return {
     getCurrentTaskIndex,
     deleteTaskObject,
 start,
+stop,
+elapsed,
 };
 }
 
