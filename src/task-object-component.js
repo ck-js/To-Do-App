@@ -1,56 +1,29 @@
 
-
-class Stopwatch {
-    constructor() {
-        this.startTime = null;
-        this.endTime = null;
-
-    }
-    start() {
-        this.startTime = new Date();
-    }
-stop() {
-    this.endTime = new Date();;
-}
-elapsed() {
-    if (!this.startTime) {
-        throw new Error('Stopwatch not yet started!')
-    }
-    if (!this.endTime) {
-        throw new Error('Stopwatch not yet stopped!')
-    }
-    return this.endTime - this.startTime;
-}
-
-}
-
 class Task {
 constructor(description,project,timeSpent) {
     this.description = description
     this.project = project
-    this.timeSpent = timeSpent
+    this.timeSpent = []
     this.startTime = null;
     this.endTime = null;
+this.msArray = []
 
     }
-    start() {
-this.startTime = new Date();
-    }
-    stop() {
-        this.endTime = new Date();;
-    }
-    elapsed() {
-        if (!this.startTime) {
-            throw new Error('Stopwatch not yet started!')
-        }
-        if (!this.endTime) {
-            throw new Error('Stopwatch not yet stopped!')
-        }
-        return this.endTime - this.startTime;
-    }
-
-
-
+//     start() {
+// this.startTime = new Date();
+//     }
+//     stop() {
+//         this.endTime = new Date();;
+//     }
+//     elapsed() {
+//         if (!this.startTime) {
+//             throw new Error('Stopwatch not yet started!')
+//         }
+//         if (!this.endTime) {
+//             throw new Error('Stopwatch not yet stopped!')
+//         }
+//         return this.endTime - this.startTime;
+    // }
 
 }
 
@@ -94,7 +67,7 @@ function deleteTaskObject(index) {
     }
 }
 function start(index) {
-    array[index].startTime = new Date();
+        array[index].startTime = new Date();
 
 }
 function stop(index) {
@@ -108,9 +81,36 @@ function elapsed(index) {
     if (!array[index].endTime) {
         throw new Error('Stopwatch not yet stopped!')
     }
-    return array[index].endTime - array[index].startTime;
+
+    const milliseconds = array[index].endTime - array[index].startTime;
+
+    return milliseconds;
 }
 
+function formatTime(milliseconds) {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+  
+    const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+    return formattedTime;
+  }
+  
+  function padZero(number) {
+    return number.toString().padStart(2, "0");
+  }
+function getFormattedSpentTime(index) {
+let totalMilliSeconds = 0;
+for (let i = 0; i <array[index].msArray.length; i++) {
+let element = array[index].msArray[i];
+totalMilliSeconds += element;
+
+}
+return formatTime(totalMilliSeconds);
+}  
+  
+  
 
 
 return {
@@ -124,6 +124,7 @@ return {
 start,
 stop,
 elapsed,
+getFormattedSpentTime,
 };
 }
 
@@ -131,7 +132,7 @@ elapsed,
 
 
 export {
- Stopwatch,   
+
 createTaskObject,
 addTaskToAnArray,
 createArrayFactory

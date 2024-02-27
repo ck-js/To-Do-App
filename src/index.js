@@ -39,6 +39,7 @@ allTasksArray.addItem(
             description: 'build task item component',
             project: 'Javascript',
             timeSpent: '00:28:23',
+            msArray: [],
     
         }
 );
@@ -88,20 +89,25 @@ event.target.textContent = 'Start'
 
         // call the current task to stop timer
 allTasksArray.stop(currentTask)
+// set the current elapsed time to ms array
 const elapsedTime = allTasksArray.elapsed(currentTask);
-allTasksArray.getArrayItem(currentTask).timeSpent = elapsedTime;
+allTasksArray.getArrayItem(currentTask).msArray.push(elapsedTime);
+// set the spent time property the sum of ms array items
+const totalMilliseconds = allTasksArray.getFormattedSpentTime(currentTask);
+allTasksArray.getArrayItem(currentTask).timeSpent = totalMilliseconds;
+
 
 updateTasksContainer(allTasksArray.getArray())
 
 
         console.log(allTasksArray.getArray());    
 
-        
     } else {
         const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
         allTasksArray.setCurrentTaskIndex(currentTask)
         
         event.target.textContent = 'Stop';
+
 
         // call the current task to start timer
         allTasksArray.start(currentTask)
