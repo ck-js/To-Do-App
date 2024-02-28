@@ -36,7 +36,7 @@ createTaskObject,
 const allTasksArray = createArrayFactory();
 allTasksArray.addItem(
             {
-            description: 'build task item component',
+            description: 'build task item component and write a really long description so that we can see what the affect will be',
             project: 'Javascript',
             timeSpent: '00:28:23',
             msArray: [],
