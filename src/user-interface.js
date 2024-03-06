@@ -125,11 +125,13 @@ h2.innerHTML = 'New Task';
 
 const form = document.createElement('form');
 form.id = 'create-form'
-const label1 = createLabel('create-description', 'Deez asian nutz');
+const label1 = createLabel('create-description', 'Description');
 const input1 = createInput('create-description', 'text')
 
 const label2 = createLabel('create-project','Project');
-const input2 = createInput('create-project','text');
+const input2 = document.createElement('select')
+input2.classList.add('create-project');
+input2.id = 'create-project';
 
 const input3 = document.createElement('span')
 input3.id = 'create-start-time'

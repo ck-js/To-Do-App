@@ -2,7 +2,6 @@ import {
 format
 } from 'date-fns'
 
-
 import './style.css'
 import {
     startBtnEventHandler,
@@ -29,27 +28,27 @@ createTaskObject,
     addTaskToAnArray,
     createArrayFactory,
     
-
 } from './task-object-component'
 
 
 const allTasksArray = createArrayFactory();
-allTasksArray.addItem(
-            {
-            description: 'build task item component and write a really long description so that we can see what the affect will be',
-            project: 'Javascript',
-            timeSpent: '00:28:23',
-            msArray: [],
+// allTasksArray.addItem(
+//             {
+//             description: 'build task item component and write a really long description so that we can see what the affect will be',
+//             project: 'Javascript',
+//             timeSpent: '00:28:23',
+//             msArray: [],
     
-        }
-);
-allTasksArray.addItem(
-                {
-                description: 'build to do task app',
-                project: 'Javascript',
-                timeSpent: '00:43:22',
-            }
-)
+//         }
+// );
+// allTasksArray.addItem(
+//                 {
+//                 description: 'build to do task app',
+//                 project: 'Javascript',
+//                 timeSpent: '00:43:22',
+//             }
+// )
+
 
 // all dom related functions go here
 // append task items container to output
@@ -123,7 +122,8 @@ updateTaskElementEventHandler()
 
         function handleCreateFormSubmit(event) {
             event.preventDefault();
-            
+
+            // clear the dom
             removeTaskItemsFromContainer();
             
             // get form input values
@@ -137,10 +137,16 @@ updateTaskElementEventHandler()
         const task = createTaskObject(description,project, startTime)
         // addTaskToAnArray(task,allTasksArray)
         allTasksArray.addItem(task)
+        localStorage.setItem('allTasksArray', JSON.stringify(allTasksArray.getArray()))
+
+console.log(JSON.parse(localStorage.getItem('allTasksArray')));
+
         alert('creation event handler')
             
+        // update dom with new task
             updateTasksContainer(allTasksArray.getArray())
         
+            // reset form inputs
         input1.value = '';
         input2.value = '';        
 
@@ -227,3 +233,56 @@ updateTasksContainer(allTasksArray.getArray())
 closeUpdateDialog()
 
 })
+
+
+
+// function to check if storage is available 
+function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = "__storage_test__";
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException &&
+        // everything except Firefox
+        (e.code === 22 ||
+          // Firefox
+          e.code === 1014 ||
+          // test name field too, because code might not be present
+          // everything except Firefox
+          e.name === "QuotaExceededError" ||
+          // Firefox
+          e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage &&
+        storage.length !== 0
+      );
+    }
+  }
+  
+  if (storageAvailable("localStorage")) {
+    // Yippee! We can use localStorage awesomeness
+    console.log('Yippee');
+  } else {
+    // Too bad, no localStorage for us
+    console.log('Nuppee');
+  }
+  
+  
+// select option form dropdown implementation 
+
+const selectElement = document.getElementById('create-project')
+
+const projectOptions = ['Javascript', 'Python', 'Ruby']
+projectOptions.forEach(projectOption => {
+const optionElement = document.createElement('option')
+optionElement.value = projectOption;
+optionElement.text = projectOption;
+
+selectElement.appendChild(optionElement)
+})
+

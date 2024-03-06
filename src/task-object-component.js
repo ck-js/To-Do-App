@@ -45,6 +45,7 @@ function createArrayFactory() {
     }
     function addItem(item) {
         array.push(item);
+        localStorage.setItem('task', JSON.stringify(item))
     }
     function downShiftIdToArrayIndex(id) {
         const element = id;
@@ -109,7 +110,9 @@ totalMilliSeconds += element;
 }
 return formatTime(totalMilliSeconds);
 }  
-  
+ function setLocalStorage(key, array) {
+localStorage.setItem(key, array)
+ } 
   
 
 
@@ -125,8 +128,15 @@ start,
 stop,
 elapsed,
 getFormattedSpentTime,
+setLocalStorage,
+
+
 };
 }
+
+// section for project select option dropdown implementation
+
+
 
 
 
