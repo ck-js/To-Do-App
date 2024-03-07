@@ -19,6 +19,8 @@ updateFormDialog,
 closeCreateDialog,
 closeUpdateDialog,
 openUpdateFormDialog,
+createProjectFormDialog,
+openCreateProjectFormDialog,
 
 } from './user-interface'
 
@@ -59,6 +61,8 @@ output.appendChild(createTaskItem(allTasksArray.getArray()))
 // append form to html
 output.appendChild(createFormDialog())
 output.appendChild(updateFormDialog())
+output.appendChild(createProjectFormDialog())
+
 // append start stop button to body 
 output.appendChild(startStopButton())
 
@@ -285,4 +289,15 @@ optionElement.text = projectOption;
 
 selectElement.appendChild(optionElement)
 })
+selectElement.addEventListener('change', (event) => {
+const selectedElement = event.target.value;
+if (selectedElement === 'create-project'){
+    alert(selectedElement)
+openCreateProjectFormDialog()
+
+
+}
+
+})
+
 

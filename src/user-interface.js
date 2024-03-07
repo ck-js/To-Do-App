@@ -133,6 +133,14 @@ const input2 = document.createElement('select')
 input2.classList.add('create-project');
 input2.id = 'create-project';
 
+const option1 = document.createElement('option');
+option1.value = 'no-project'
+option1.text = 'No Project';
+const option2 = document.createElement('option');
+option2.value = 'create-project'
+option2.text = 'Create Project';
+
+
 const input3 = document.createElement('span')
 input3.id = 'create-start-time'
 
@@ -153,6 +161,8 @@ form.appendChild(input2)
 // form.appendChild(label3);
 form.appendChild(input3)
 form.appendChild(submit)
+input2.appendChild(option1)
+input2.appendChild(option2)
 
 return dialog;
 }
@@ -211,8 +221,44 @@ form.appendChild(submit)
 
 return dialog;
 }
+// create project form dialog
+function createProjectFormDialog() {
+    const dialog = document.createElement('dialog')
+dialog.classList.add('dialog')
+dialog.id = 'create-project-dialog';
 
+const dialogContent = document.createElement('div')
+dialogContent.classList.add('dialog-content')
 
+const close = document.createElement('span');
+close.classList.add('close')
+close.textContent = '&times;';
+close.id = 'create-project-close';
+
+const h2 = document.createElement('h2')
+h2.innerHTML = 'New Project';
+
+const form = document.createElement('form');
+form.id = 'create-project-form'
+const label1 = createLabel('create-project-name', 'Project');
+const input1 = createInput('create-create-project-name', 'text')
+input1.placeholder = 'Enter a project name';
+const submit = document.createElement('button')
+submit.type = 'submit';
+submit.id = 'create-project-submit-button';
+submit.textContent = 'Done'
+
+// append elements start from lowest child
+dialog.appendChild(dialogContent)
+dialogContent.appendChild(close);
+dialogContent.appendChild(h2);
+dialogContent.appendChild(form);
+form.appendChild(label1);
+form.appendChild(input1)
+form.appendChild(submit)
+
+return dialog;
+}
 
 function createLabel(forAttribute,textContent) {
     const label = document.createElement('label')
@@ -246,6 +292,15 @@ function closeCreateDialog() {
 }
 function closeUpdateDialog() {
     const dialog = document.getElementById('update-dialog')
+    dialog.close()
+}
+function openCreateProjectFormDialog() {
+    const dialog = document.getElementById('create-project-dialog')
+    dialog.showModal()
+    return dialog;
+}
+function closeCreateProjectDialog() {
+    const dialog = document.getElementById('create-project-dialog')
     dialog.close()
 }
 
@@ -289,7 +344,8 @@ closeUpdateDialog,
 getCurrentHourAndMinute,
 removeTaskItemsFromContainer,
 updateTasksContainer,
-
-
+createProjectFormDialog,
+openCreateProjectFormDialog,
+closeCreateProjectDialog,
 
 }
