@@ -1,5 +1,5 @@
 import {
-format
+format, setDayOfYear
 } from 'date-fns'
 
 import './style.css'
@@ -21,6 +21,7 @@ closeUpdateDialog,
 openUpdateFormDialog,
 createProjectFormDialog,
 openCreateProjectFormDialog,
+closeCreateProjectDialog,
 
 } from './user-interface'
 
@@ -29,6 +30,7 @@ import {
 createTaskObject,
     addTaskToAnArray,
     createArrayFactory,
+    downShiftIdToArrayIndex,
     
 } from './task-object-component'
 
@@ -74,12 +76,24 @@ function updateTaskElementEventHandler() {
     const parentElement = document.getElementById('task-items-container')
 parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
-const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
-allTasksArray.setCurrentTaskIndex(currentTask)
+// const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
+// const currentTask = JSON.parse(localStorage.allTasks[downShiftIdToArrayIndex(event.target.parentNode.id)])
+// allTasksArray.setCurrentTaskIndex(currentTask)
+const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+const storedData = localStorage.getItem('allTasks')
+const dataArray = JSON.parse(storedData);
+const selectedObject = dataArray[shiftedIndex];
+
+
+const description = document.getElementById('update-description');
+description.value = selectedObject.description
+const project = document.getElementById('update-project');
+project.value = selectedObject.project;
+
 
 openUpdateFormDialog()
-populateFormInputs(currentTask)
-
+// populateFormInputs(currentTask)
+// console.log(currentTask);
     }
     if (event.target.matches('.task-component') &&
     event.target.textContent === 'Stop') {
@@ -99,9 +113,7 @@ allTasksArray.getArrayItem(currentTask).msArray.push(elapsedTime);
 const totalMilliseconds = allTasksArray.getFormattedSpentTime(currentTask);
 allTasksArray.getArrayItem(currentTask).timeSpent = totalMilliseconds;
 
-
 updateTasksContainer(allTasksArray.getArray())
-
 
         console.log(allTasksArray.getArray());    
 
@@ -122,8 +134,19 @@ updateTasksContainer(allTasksArray.getArray())
 }
 updateTaskElementEventHandler()
 
-// function to handle form submit
+// function to add object to local storage array
+function addObjectToLocalStorageArray(key, object) {
+    // checks if key exists in storage or creates one with empty array
+    // and stores it in a variable
+const existingArray = JSON.parse(localStorage.getItem(key)) || [];
+// push the object to an array in storage
+existingArray.push(object);
+// set the array with new object in key of storage 
+localStorage.setItem(key, JSON.stringify(existingArray))
 
+}
+
+// function to handle form submit
         function handleCreateFormSubmit(event) {
             event.preventDefault();
 
@@ -135,20 +158,22 @@ updateTaskElementEventHandler()
             const description = input1.value;
             const input2 = document.getElementById('create-project');
             const project = input2.value;
-            const startTime = getCurrentHourAndMinute();
+            // const startTime = getCurrentHourAndMinute();
         
         // create new task object
-        const task = createTaskObject(description,project, startTime)
+        const task = createTaskObject(description,project)
         // addTaskToAnArray(task,allTasksArray)
-        allTasksArray.addItem(task)
-        localStorage.setItem('allTasksArray', JSON.stringify(allTasksArray.getArray()))
+        // allTasksArray.addItem(task)
+        // localStorage.setItem('allTasksArray', JSON.stringify(task))
+addObjectToLocalStorageArray('allTasks', task)
 
-console.log(JSON.parse(localStorage.getItem('allTasksArray')));
+console.log(JSON.parse(localStorage.getItem('allTasks')));
 
         alert('creation event handler')
             
         // update dom with new task
-            updateTasksContainer(allTasksArray.getArray())
+            // updateTasksContainer(allTasksArray.getArray())
+            updateTasksContainer(JSON.parse(localStorage.allTasks))
         
             // reset form inputs
         input1.value = '';
@@ -188,7 +213,6 @@ alert('update event handler')
             
                 }
 
-
 // attatch event listener and handler to create and update form submit    
     const createForm =document.getElementById('create-form');
     createForm.addEventListener("submit", handleCreateFormSubmit)    
@@ -198,12 +222,12 @@ updateForm.addEventListener("submit", handleUpdateFormSubmit)
 // function to populate form dialog with clicked task
 function populateFormInputs(arrayIndex) {
 let input1 = document.getElementById('update-description');
-input1.value = allTasksArray.getArrayItem(arrayIndex).description;
+input1.value = localStorage.getItem(allTasks)[arrayIndex].description;
 
 let input2 = document.getElementById('update-project');
-input2.value = allTasksArray.getArrayItem(arrayIndex).project;
+input2.value = localStorage.getItem(allTasks)[arrayIndex].project;
 
-console.log(allTasksArray.getArray());
+console.log(localStorage.getItem(allTasks[arrayIndex]));
 }
 
 // event handler for closing create form dialog
@@ -280,24 +304,48 @@ function storageAvailable(type) {
 // select option form dropdown implementation 
 
 const selectElement = document.getElementById('create-project')
-
 const projectOptions = ['Javascript', 'Python', 'Ruby']
+
+function setProjectOptions() {
 projectOptions.forEach(projectOption => {
 const optionElement = document.createElement('option')
 optionElement.value = projectOption;
 optionElement.text = projectOption;
 
 selectElement.appendChild(optionElement)
-})
+});
+}
+
 selectElement.addEventListener('change', (event) => {
 const selectedElement = event.target.value;
 if (selectedElement === 'create-project'){
     alert(selectedElement)
 openCreateProjectFormDialog()
 
-
 }
 
 })
+// handle create project form submit
+const createProjectForm = document.getElementById('create-project-form')
+createProjectForm.addEventListener('submit', (event) => {
+event.preventDefault();
+const projectNameInput = document.getElementById('create-create-project-name').value;
+projectOptions.push(projectNameInput)
+// call function to update project options 
+setProjectOptions();
 
+closeCreateProjectDialog()
 
+})
+setProjectOptions();
+
+// function to clear local storage
+function clearLocalStorage() {
+    localStorage.clear();
+    
+}
+// clearLocalStorage()
+
+// call on page load to display tasks in local storage
+// updateTasksContainer(JSON.parse(localStorage.allTasksArray))
+updateTasksContainer(JSON.parse(localStorage.allTasks))

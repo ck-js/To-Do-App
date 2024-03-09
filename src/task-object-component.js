@@ -140,11 +140,22 @@ setLocalStorage,
 
 
 
+// refactored factory methods to global functions
+function downShiftIdToArrayIndex(id) {
+    const element = id;
+    let shiftedId = parseInt((element) -1);
+
+return shiftedId;
+}
+
+
 
 export {
 
 createTaskObject,
 addTaskToAnArray,
-createArrayFactory
+createArrayFactory,
+downShiftIdToArrayIndex,
+
 
 }
