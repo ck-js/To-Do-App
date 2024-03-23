@@ -1,5 +1,5 @@
 import {
-format, setDayOfYear
+format, setDayOfYear, startOfQuarter
 } from 'date-fns'
 
 import './style.css'
@@ -71,64 +71,91 @@ output.appendChild(startStopButton())
 // start btn event handler
 startBtnEventHandler()
 
+console.log(JSON.parse(localStorage.getItem('allTasks')));
+
 // event handler for initiating updating task elements
 function updateTaskElementEventHandler() {
     const parentElement = document.getElementById('task-items-container')
 parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
-// const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
-// const currentTask = JSON.parse(localStorage.allTasks[downShiftIdToArrayIndex(event.target.parentNode.id)])
-// allTasksArray.setCurrentTaskIndex(currentTask)
+
 const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
 const storedData = localStorage.getItem('allTasks')
 const dataArray = JSON.parse(storedData);
 const selectedObject = dataArray[shiftedIndex];
-
 
 const description = document.getElementById('update-description');
 description.value = selectedObject.description
 const project = document.getElementById('update-project');
 project.value = selectedObject.project;
 
-
 openUpdateFormDialog()
 // populateFormInputs(currentTask)
 // console.log(currentTask);
     }
+
     if (event.target.matches('.task-component') &&
     event.target.textContent === 'Stop') {
 
-        removeTaskItemsFromContainer()
+        // removeTaskItemsFromContainer()
+        const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+        const storedData = localStorage.getItem('allTasks')
+        const dataArray = JSON.parse(storedData);
+        const selectedObject = dataArray[shiftedIndex];
 
-        const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
-        allTasksArray.setCurrentTaskIndex(currentTask)
-event.target.textContent = 'Start'
+        // set value to key of object in array
+        const endTimeValue = new Date().getTime();
+        selectedObject.endTime = endTimeValue;
+       
+       // convert array back into string
+       const updatedArrayString = JSON.stringify(dataArray)
+       
+       // store the updated array back into local storage
+       localStorage.setItem('allTasks', updatedArrayString)
+       
+       console.log(selectedObject);
+       console.log(dataArray);
 
-        // call the current task to stop timer
-allTasksArray.stop(currentTask)
-// set the current elapsed time to ms array
-const elapsedTime = allTasksArray.elapsed(currentTask);
-allTasksArray.getArrayItem(currentTask).msArray.push(elapsedTime);
-// set the spent time property the sum of ms array items
-const totalMilliseconds = allTasksArray.getFormattedSpentTime(currentTask);
-allTasksArray.getArrayItem(currentTask).timeSpent = totalMilliseconds;
-
-updateTasksContainer(allTasksArray.getArray())
-
-        console.log(allTasksArray.getArray());    
+// when we click update task element it populates the form element with the corresponding task from the local stroage object.
+// but for some reason if we close the form dialog it will change the text content of description to stop or start 
+// we want the start button to reset the corresponding task object with null 
+// then set the start time key value to a new date method
+// the stop button adds new date to the end time key value 
+// it then does some operations and calculations such as
+// store the difference in end and start time in milliseconds of the current key values
+// push the milliseconds value to the ms array 
+// loop through ms array and sum up all items 
+// store or update total time in milliseconds
+// get total time in milliseconds and convert to total seconds 
+// format total seconds into hour hour minute minute second second format
+// display formatted total time in the dom element
+// call function to repopulate the task items container with updated task elements
 
     } else {
-        const currentTask = allTasksArray.downShiftIdToArrayIndex(event.target.parentNode.id)
-        allTasksArray.setCurrentTaskIndex(currentTask)
-        
+        // convert element id to array index value
+        const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+        // get the all tasks array storing task objects
+        const storedData = localStorage.getItem('allTasks')
+        // convert stringed array to normal array
+        const dataArray = JSON.parse(storedData);
+        // get the correlated task object
+        const selectedObject = dataArray[shiftedIndex];
+
+        // set value to key of object in array
+const startTime = new Date().getTime();
+ selectedObject.startTime = startTime;
+
+// convert array back into string
+const updatedArrayString = JSON.stringify(dataArray)
+
+// store the updated array back into local storage
+localStorage.setItem('allTasks', updatedArrayString)
+
+console.log(selectedObject);
+console.log(dataArray);
+
         event.target.textContent = 'Stop';
-
-
-        // call the current task to start timer
-        allTasksArray.start(currentTask)
         
-
-        console.log(allTasksArray.getArray());    
     }
 })
 }
@@ -349,3 +376,12 @@ function clearLocalStorage() {
 // call on page load to display tasks in local storage
 // updateTasksContainer(JSON.parse(localStorage.allTasksArray))
 updateTasksContainer(JSON.parse(localStorage.allTasks))
+
+// function to start timer that takes object as argument
+function startTimer(object) {
+
+}
+
+
+const testTime = new Date().getTime();
+console.log(testTime);

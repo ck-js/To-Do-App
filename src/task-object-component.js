@@ -147,6 +147,50 @@ function downShiftIdToArrayIndex(id) {
 
 return shiftedId;
 }
+function start(index) {
+    localStorage.allTasks[index].startTime = new Date();
+
+}
+function stop(index) {
+array[index].endTime = new Date();
+
+}
+function elapsed(index) {
+if (!array[index].startTime) {
+    throw new Error('Stopwatch not yet started!')
+}
+if (!array[index].endTime) {
+    throw new Error('Stopwatch not yet stopped!')
+}
+
+const milliseconds = array[index].endTime - array[index].startTime;
+
+return milliseconds;
+}
+
+function formatTime(milliseconds) {
+const totalSeconds = Math.floor(milliseconds / 1000);
+const hours = Math.floor(totalSeconds / 3600);
+const minutes = Math.floor((totalSeconds % 3600) / 60);
+const seconds = totalSeconds % 60;
+
+const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+return formattedTime;
+}
+
+function padZero(number) {
+return number.toString().padStart(2, "0");
+}
+function getFormattedSpentTime(index) {
+let totalMilliSeconds = 0;
+for (let i = 0; i <array[index].msArray.length; i++) {
+let element = array[index].msArray[i];
+totalMilliSeconds += element;
+
+}
+return formatTime(totalMilliSeconds);
+}  
+
 
 
 
@@ -156,6 +200,5 @@ createTaskObject,
 addTaskToAnArray,
 createArrayFactory,
 downShiftIdToArrayIndex,
-
 
 }
