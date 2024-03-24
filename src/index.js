@@ -104,9 +104,31 @@ openUpdateFormDialog()
         const selectedObject = dataArray[shiftedIndex];
 
         // set value to key of object in array
+        if (selectedObject.startTime){
         const endTimeValue = new Date().getTime();
         selectedObject.endTime = endTimeValue;
-       
+
+        // get start and end time in milliseconds and push to array
+const elapsedTime = selectedObject.endTime - selectedObject.startTime;
+selectedObject.msArray.push(elapsedTime);
+console.log(elapsedTime);
+        
+selectedObject.startTime = null;
+
+// sum up milliseconds items in ms array
+let totalMilliseconds = 0;
+for (let i = 0; i < selectedObject.msArray.length; i++) {
+    totalMilliseconds += selectedObject.msArray[i];
+    
+
+}
+selectedObject.spentTime = totalMilliseconds;
+alert(totalMilliseconds);
+
+
+
+        }
+        event.target.textContent = 'Start';
        // convert array back into string
        const updatedArrayString = JSON.stringify(dataArray)
        
@@ -115,6 +137,8 @@ openUpdateFormDialog()
        
        console.log(selectedObject);
        console.log(dataArray);
+
+
 
 // when we click update task element it populates the form element with the corresponding task from the local stroage object.
 // but for some reason if we close the form dialog it will change the text content of description to stop or start 
@@ -383,5 +407,4 @@ function startTimer(object) {
 }
 
 
-const testTime = new Date().getTime();
-console.log(testTime);
+console.log(JSON.parse(localStorage.allTasks));
