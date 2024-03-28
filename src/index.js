@@ -22,6 +22,7 @@ openUpdateFormDialog,
 createProjectFormDialog,
 openCreateProjectFormDialog,
 closeCreateProjectDialog,
+createProjectFilterSelect,
 
 } from './user-interface'
 
@@ -65,8 +66,12 @@ output.appendChild(createFormDialog())
 output.appendChild(updateFormDialog())
 output.appendChild(createProjectFormDialog())
 
+
 // append start stop button to body 
 output.appendChild(startStopButton())
+
+// append project filter feature to dom
+output.appendChild(createProjectFilterSelect())
 
 // start btn event handler
 startBtnEventHandler()

@@ -321,7 +321,30 @@ const update = output.appendChild(createTaskItem(arrayName))
 return update;
 
 }
+// project filter select dom element
+function createProjectFilterSelect() {
+const container = document.createElement('div')
+container.id = 'project-filter-container'
 
+const label2 = createLabel('project-filter','Filter');
+const input2 = document.createElement('select')
+input2.classList.add('create-project');
+input2.id = 'project-filter';
+
+const option1 = document.createElement('option');
+option1.value = 'all-tasks'
+option1.text = 'All Tasks';
+const option2 = document.createElement('option');
+option2.value = 'create-project'
+option2.text = 'Create Project';
+
+container.appendChild(label2)
+container.appendChild(input2)
+input2.appendChild(option1)
+input2.appendChild(option2)
+
+return container;
+}
 
 
 
@@ -347,5 +370,6 @@ updateTasksContainer,
 createProjectFormDialog,
 openCreateProjectFormDialog,
 closeCreateProjectDialog,
+createProjectFilterSelect,
 
 }
