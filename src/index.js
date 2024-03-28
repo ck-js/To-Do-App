@@ -59,7 +59,7 @@ const allTasksArray = createArrayFactory();
 const output = document.getElementById('output')
 output.appendChild(taskItemsContainer())
 // append task items to task items container
-output.appendChild(createTaskItem(allTasksArray.getArray()))
+// output.appendChild(createTaskItem(allTasksArray.getArray()))
 // append form to html
 output.appendChild(createFormDialog())
 output.appendChild(updateFormDialog())
@@ -84,6 +84,10 @@ const storedData = localStorage.getItem('allTasks')
 const dataArray = JSON.parse(storedData);
 const selectedObject = dataArray[shiftedIndex];
 
+// set the current task object index value to local storage
+localStorage.setItem('currentTask', shiftedIndex)
+
+// retrieve local storage values to populate dom elements 
 const description = document.getElementById('update-description');
 description.value = selectedObject.description
 const project = document.getElementById('update-project');
@@ -97,7 +101,7 @@ openUpdateFormDialog()
     if (event.target.matches('.task-component') &&
     event.target.textContent === 'Stop') {
 
-        // removeTaskItemsFromContainer()
+        removeTaskItemsFromContainer()
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
         const storedData = localStorage.getItem('allTasks')
         const dataArray = JSON.parse(storedData);
@@ -120,15 +124,19 @@ let totalMilliseconds = 0;
 for (let i = 0; i < selectedObject.msArray.length; i++) {
     totalMilliseconds += selectedObject.msArray[i];
     
-
 }
+// set result to object property
 selectedObject.spentTime = totalMilliseconds;
 alert(totalMilliseconds);
 
-
+// display result on dom element 
+const previousSibling = event.target.previousSibling;
+previousSibling.textContent = totalMilliseconds;
+console.log(previousSibling);
 
         }
         event.target.textContent = 'Start';
+        
        // convert array back into string
        const updatedArrayString = JSON.stringify(dataArray)
        
@@ -138,7 +146,7 @@ alert(totalMilliseconds);
        console.log(selectedObject);
        console.log(dataArray);
 
-
+       updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
 
 // when we click update task element it populates the form element with the corresponding task from the local stroage object.
 // but for some reason if we close the form dialog it will change the text content of description to stop or start 
@@ -240,22 +248,42 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
                 event.preventDefault();
             
                 removeTaskItemsFromContainer();
-                
                 // get form input values
                 const input1 = document.getElementById('update-description');
                 const description = input1.value;
                 const input2 = document.getElementById('update-project');
                 const project = input2.value;
                 
-            
-// update task object
-const currentTaskIndex = allTasksArray.getCurrentTaskIndex();
-allTasksArray.getArrayItem(currentTaskIndex).description = description;
-allTasksArray.getArrayItem(currentTaskIndex).project = project;
+// get index of current task
+const currentTask = localStorage.getItem('currentTask')
+
+// update the task object in local sstorage
+        
+        // get the all tasks array storing task objects
+        const storedData = localStorage.getItem('allTasks')
+        // convert stringed array to normal array
+        const dataArray = JSON.parse(storedData);
+        // get the correlated task object
+        const selectedObject = dataArray[currentTask];
+
+        alert(currentTask)
+        // set input values to local storage
+ selectedObject.description = description;
+ selectedObject.project = project;
+
+// convert array back into string
+const updatedArrayString = JSON.stringify(dataArray)
+
+// store the updated array back into local storage
+localStorage.setItem('allTasks', updatedArrayString)
+
+console.log(selectedObject);
+console.log(dataArray);
+
 
 alert('update event handler')
 
-        updateTasksContainer(allTasksArray.getArray())
+        updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
             
             input1.value = '';
             input2.value = '';        
@@ -304,11 +332,24 @@ const deleteButton = document.getElementById('update-delete');
 deleteButton.addEventListener('click', (event) => {
 
     removeTaskItemsFromContainer();
-    const currentTask = allTasksArray.getCurrentTaskIndex();
+    const currentTask = localStorage.getItem('currentTask');
+    const storedData = localStorage.getItem('allTasks')
+    const dataArray = JSON.parse(storedData);
+    const selectedObject = dataArray[currentTask];
+// remove object from array
+dataArray.splice(currentTask,1)
+console.log(dataArray);
 
-allTasksArray.deleteTaskObject(currentTask)
+// convert array back into string
+const updatedArrayString = JSON.stringify(dataArray)
+       
+// store the updated array back into local storage
+localStorage.setItem('allTasks', updatedArrayString)
 
-updateTasksContainer(allTasksArray.getArray())
+// render dom with updated task objects
+updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
+
+
 closeUpdateDialog()
 
 })

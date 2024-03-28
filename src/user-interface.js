@@ -73,7 +73,7 @@ const taskItemsContainer = document.getElementById(
         const div3 = document.createElement('div');
         div3.classList.add('task-item');
         div3.id = 'task-time-spent';
-        div3.textContent = item.timeSpent;
+        div3.textContent = item.spentTime;
 
         // div for start and stop button
         const div4 = document.createElement('div');
