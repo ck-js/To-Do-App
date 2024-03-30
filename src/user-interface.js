@@ -341,7 +341,7 @@ option2.text = 'Create Project';
 container.appendChild(label2)
 container.appendChild(input2)
 input2.appendChild(option1)
-input2.appendChild(option2)
+// input2.appendChild(option2)
 
 return container;
 }

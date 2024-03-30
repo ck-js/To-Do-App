@@ -452,5 +452,72 @@ function startTimer(object) {
 
 }
 
+// event listener and handler for project filter feature
+const projectFilterSelect = document.getElementById('project-filter-container')
+function handleProjectFilterSelect() {
+    // alert('Clicked')
+    // get select element
+const selectElement = document.getElementById('project-filter')
+// remove children option elements 
+for (let i = selectElement.children.length -1; i >= 1; i--) {
+const child = selectElement.children[i];
+selectElement.removeChild(child)
+
+}
+
+// get local storage array of task objects
+const storedData = localStorage.getItem('allTasks')
+// convert stringed array to normal array
+const dataArray = JSON.parse(storedData);
+
+// loop through array object items and output the project value
+for (let i = 0; i < dataArray.length; i++) {
+const element = dataArray[i];
+console.log(element.project);
+const optionElement = document.createElement('option')
+optionElement.value = element.project;
+optionElement.text = element.project;
+
+selectElement.appendChild(optionElement)
+
+// create local storage array item with project value
+// check if array item exists in local storage
+if (!localStorage.getItem(element.project)) {
+    alert(element.project + ' has been added as local storage item')
+    localStorage.setItem(element.project, JSON.stringify([]))
+}
+// determine which array item to push each task object
+if (JSON.parse(localStorage.getItem(element.project) === element.project)) {
+const myArray = JSON.parse(localStorage.getItem(element.project))
+myArray.push(element)
+console.log(element + ' has been pushed to' );
+
+}
+
+
+}
+
+// code to update tasks container depending on the project filter value
+
+}
+projectFilterSelect.addEventListener('click', handleProjectFilterSelect)
+projectFilterSelect.addEventListener('change', (event) => {
+    const selectedElement = event.target.value;
+alert(selectedElement)
+
+
+
+    // if (selectedElement === 'Python'){
+    //     alert(selectedElement)
+    
+    
+    // }
+    
+    })
+
+
+
+
+
 
 console.log(JSON.parse(localStorage.allTasks));
