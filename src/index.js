@@ -486,37 +486,50 @@ if (!localStorage.getItem(element.project)) {
     alert(element.project + ' has been added as local storage item')
     localStorage.setItem(element.project, JSON.stringify([]))
 }
-// determine which array item to push each task object
-if (JSON.parse(localStorage.getItem(element.project) === element.project)) {
-const myArray = JSON.parse(localStorage.getItem(element.project))
-myArray.push(element)
-console.log(element + ' has been pushed to' );
-
 }
 
 
-}
 
 // code to update tasks container depending on the project filter value
 
 }
 projectFilterSelect.addEventListener('click', handleProjectFilterSelect)
 projectFilterSelect.addEventListener('change', (event) => {
-    const selectedElement = event.target.value;
-alert(selectedElement)
+// get the value of selected option element
+    const selectedItem = event.target.value;
+alert(selectedItem)
+// get the all tasks array
+const allTasksArray = JSON.parse(localStorage.getItem('allTasks'))
+// get the array of selected item
+const selectedItemArray = JSON.parse(localStorage.getItem(selectedItem))
+
+// loop through all tasks array 
+for (let i = 0; i < allTasksArray.length; i++) {
+    const currentItem = allTasksArray[i];
+    if (currentItem.project === selectedItem)
+    alert(currentItem.project + ' matches ' + selectedItem)
+// create new object and modify if needed
+    const modifiedObject = {
+...currentItem,
+
+    };
+    // push modified object to new array
+    selectedItemArray.push(modifiedObject)
+    // store new array back into local storage
+    localStorage.setItem(selectedItemArray, JSON.stringify(selectedItemArray))
+
+    console.log(JSON.parse(localStorage.getItem(selectedItem)));
+}
 
 
 
-    // if (selectedElement === 'Python'){
-    //     alert(selectedElement)
+
     
-    
-    // }
     
     })
 
 
-
+// clearLocalStorage()
 
 
 
