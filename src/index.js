@@ -503,30 +503,23 @@ const allTasksArray = JSON.parse(localStorage.getItem('allTasks'))
 // get the array of selected item
 const selectedItemArray = JSON.parse(localStorage.getItem(selectedItem))
 
+const filteredObjects = [];
 // loop through all tasks array 
 for (let i = 0; i < allTasksArray.length; i++) {
-    const currentItem = allTasksArray[i];
-    if (currentItem.project === selectedItem)
-    alert(currentItem.project + ' matches ' + selectedItem)
-// create new object and modify if needed
-    const modifiedObject = {
-...currentItem,
-
-    };
-    // push modified object to new array
-    selectedItemArray.push(modifiedObject)
-    // store new array back into local storage
-    localStorage.setItem(selectedItemArray, JSON.stringify(selectedItemArray))
-
-    console.log(JSON.parse(localStorage.getItem(selectedItem)));
+    // const currentItem = allTasksArray[i];
+    if (allTasksArray[i].project === selectedItem) {
+        filteredObjects.push(allTasksArray[i])
+    }
+console.log(filteredObjects);
+removeTaskItemsFromContainer();
+updateTasksContainer(filteredObjects)
 }
 
-
-
-
+// store new array back into local storage
+localStorage.setItem(selectedItemArray, JSON.stringify(selectedItemArray))
     
     
-    })
+    });
 
 
 // clearLocalStorage()
