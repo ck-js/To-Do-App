@@ -455,7 +455,7 @@ function startTimer(object) {
 // event listener and handler for project filter feature
 const projectFilterSelect = document.getElementById('project-filter-container')
 function handleProjectFilterSelect() {
-    // alert('Clicked')
+    
     // get select element
 const selectElement = document.getElementById('project-filter')
 // remove children option elements 
@@ -470,38 +470,35 @@ const storedData = localStorage.getItem('allTasks')
 // convert stringed array to normal array
 const dataArray = JSON.parse(storedData);
 
+const uniqueValues = [];
 // loop through array object items and output the project value
 for (let i = 0; i < dataArray.length; i++) {
-const element = dataArray[i];
-console.log(element.project);
+let key = dataArray[i].project;
+
+if (!uniqueValues.includes(key)) {
+
 const optionElement = document.createElement('option')
-optionElement.value = element.project;
-optionElement.text = element.project;
+optionElement.value = key;
+optionElement.text = key;
 
 selectElement.appendChild(optionElement)
+uniqueValues.push(key)
 
-// create local storage array item with project value
-// check if array item exists in local storage
-if (!localStorage.getItem(element.project)) {
-    alert(element.project + ' has been added as local storage item')
-    localStorage.setItem(element.project, JSON.stringify([]))
-}
 }
 
 
 
-// code to update tasks container depending on the project filter value
+}
 
 }
 projectFilterSelect.addEventListener('click', handleProjectFilterSelect)
 projectFilterSelect.addEventListener('change', (event) => {
 // get the value of selected option element
     const selectedItem = event.target.value;
-alert(selectedItem)
+
 // get the all tasks array
 const allTasksArray = JSON.parse(localStorage.getItem('allTasks'))
-// get the array of selected item
-const selectedItemArray = JSON.parse(localStorage.getItem(selectedItem))
+
 
 const filteredObjects = [];
 // loop through all tasks array 
@@ -515,9 +512,7 @@ removeTaskItemsFromContainer();
 updateTasksContainer(filteredObjects)
 }
 
-// store new array back into local storage
-localStorage.setItem(selectedItemArray, JSON.stringify(selectedItemArray))
-    
+
     
     });
 
