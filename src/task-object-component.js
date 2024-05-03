@@ -1,35 +1,18 @@
 
 class Task {
-constructor(description,project,timeSpent) {
-    this.description = description
-    this.project = project
-    this.timeSpent = []
-    this.startTime = null;
-    this.endTime = null;
-this.msArray = []
+    static idCounter = 0;
 
+    constructor(description, project) {
+        this.id = Task.idCounter++;
+        this.description = description;
+        this.project = project;
     }
-//     start() {
-// this.startTime = new Date();
-//     }
-//     stop() {
-//         this.endTime = new Date();;
-//     }
-//     elapsed() {
-//         if (!this.startTime) {
-//             throw new Error('Stopwatch not yet started!')
-//         }
-//         if (!this.endTime) {
-//             throw new Error('Stopwatch not yet stopped!')
-//         }
-//         return this.endTime - this.startTime;
-    // }
-
 }
 
-function createTaskObject(description,project,startTime) {
-    const task = new Task(description,project,startTime)
-    
+function createTaskObject(description,project) {
+    const task = new Task(description,project)
+
+    console.log(task);
     return task
 }
 function addTaskToAnArray(object, arrayName) {
