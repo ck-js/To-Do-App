@@ -1,11 +1,12 @@
 
 class Task {
-    static idCounter = 0;
+    static idCounter = 1;
 
     constructor(description, project) {
         this.id = Task.idCounter++;
         this.description = description;
         this.project = project;
+        this.isComplete = false;
     }
 }
 

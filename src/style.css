@@ -1,15 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+
 body {
     background-color: black;
     color: white;
 }
 #task-items-container {
     border: 3px solid white;
-    height: 600px;
-    width: 600px;
-    
+    /* height: 600px;
+    width: 600px; */
     flex-direction: column;
-    overflow: scroll;
-    white-space: wrap;
+    
+    
 }
 .task-item-element {
     border: 3px solid white;
@@ -49,20 +56,73 @@ padding-top: 20px;
 
 #start-stop-button {
     border: 5px solid purple;
-    border-radius: 50%;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    height: 200px;
-    width: 200px;
+height: 200px;    
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.dialog {
+#project-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0;
+    
+}
+#filter-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+#project-filter {
+    width: 60%;
+    height: 35px;
+    border: 2px solid purple;
     background-color: black;
-    border:  5px solid purple;
     color: white;
+}
+.dialog {
+background-color: black;
+    border: 5px solid purple;
+    color: white;
+    position: fixed; /* Position the dialog relative to the viewport */
+    top: 50%; /* Position the dialog halfway down the viewport */
+    left: 50%; /* Position the dialog halfway across the viewport */
+    transform: translate(-50%, -50%); /* Offset the dialog's position by half its own width and height to center it */
+    /* Add width and height if needed */
+    width: 80%;
+    padding-bottom: 20px;
+    
+}
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    transition: opacity 0.3s ease-in-out;
+}
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+#create-close {
+    align-self: flex-start;   
+   }
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    row-gap: 20px;
+}
+.form-wrappers {
+    display: flex;
+    flex-direction: column;
+
 }
 #create-description {
     background-color: black;
@@ -72,9 +132,20 @@ padding-top: 20px;
     background-color: black;
     color: white;
 }
-#create-submit-button {
-    background-color: black;
+form button {
+    width: 100%;
+    background-color: purple;
+    border: 1px solid purple;
     color: white;
+    align-self: center;
+    padding: 5px 0;
+
+}
+#update-nav-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 #update-description {
     background-color: black;
@@ -84,8 +155,7 @@ padding-top: 20px;
     background-color: black;
     color: white;
 }
-#update-submit-button {
-    background-color: black;
-    color: white;
-}
+
+
+
 

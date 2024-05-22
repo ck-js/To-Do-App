@@ -79,7 +79,7 @@ const taskItemsContainer = document.getElementById(
         const div4 = document.createElement('div');
 div4.classList.add('task-component')
 div4.id = 'task-start';
-div4.textContent = 'Start';
+div4.textContent = 'Mark as complete';
 
 
 
@@ -99,7 +99,7 @@ function startStopButton() {
     const button = document.createElement('div');
     button.id = 'start-stop-button';
 const h3 = document.createElement('h3')
-h3.textContent = 'Start';
+h3.textContent = '+';
 
 button.appendChild(h3)
 
@@ -116,22 +116,31 @@ const dialogContent = document.createElement('div')
 dialogContent.classList.add('dialog-content')
 
 const close = document.createElement('span');
-close.classList.add('close')
-close.textContent = '&times;';
 close.id = 'create-close';
+close.classList.add('close')
+close.textContent = 'Cancel';
 
 const h2 = document.createElement('h2')
 h2.innerHTML = 'New Task';
 
 const form = document.createElement('form');
 form.id = 'create-form'
+
+const wrapper1 = document.createElement('div');
+wrapper1.classList.add('form-wrappers')
 const label1 = createLabel('create-description', 'Description');
 const input1 = createInput('create-description', 'text')
+wrapper1.appendChild(label1)
+wrapper1.appendChild(input1)
 
+const wrapper2 = document.createElement('div');
+wrapper2.classList.add('form-wrappers')
 const label2 = createLabel('create-project','Project');
 const input2 = document.createElement('select')
 input2.classList.add('create-project');
 input2.id = 'create-project';
+wrapper2.appendChild(label2)
+wrapper2.appendChild(input2)
 
 const option1 = document.createElement('option');
 option1.value = 'no-project'
@@ -154,10 +163,8 @@ dialog.appendChild(dialogContent)
 dialogContent.appendChild(close);
 dialogContent.appendChild(h2);
 dialogContent.appendChild(form);
-form.appendChild(label1);
-form.appendChild(input1)
-form.appendChild(label2);
-form.appendChild(input2)
+form.appendChild(wrapper1);
+form.appendChild(wrapper2);
 // form.appendChild(label3);
 form.appendChild(input3)
 form.appendChild(submit)
@@ -176,27 +183,39 @@ dialog.id = 'update-dialog';
 const dialogContent = document.createElement('div')
 dialogContent.classList.add('dialog-content')
 
+const wrapper1 = document.createElement('div');
+wrapper1.id = 'update-nav-wrapper';
 const close = document.createElement('span');
 close.classList.add('close')
-close.textContent = '&times;';
 close.id = 'update-close';
+close.textContent = 'Cancel';
+wrapper1.appendChild(close)
 
 const remove = document.createElement('span');
 remove.classList.add('delete')
 remove.textContent = 'Delete';
 remove.id = 'update-delete';
+wrapper1.appendChild(remove)
 
 const h2 = document.createElement('h2')
 h2.innerHTML = 'Update Task';
 
 const form = document.createElement('form');
 form.id = 'update-form'
-const label1 = createLabel('update-description', 'Deez asian nutz');
-const input1 = createInput('update-description', 'text')
 
+const wrapper2 = document.createElement('div');
+wrapper2.classList.add('form-wrappers')
+const label1 = createLabel('update-description', 'Description');
+const input1 = createInput('update-description', 'text')
+wrapper2.appendChild(label1)
+wrapper2.appendChild(input1)
+
+const wrapper3 = document.createElement('div');
+wrapper3.classList.add('form-wrappers')
 const label2 = createLabel('update-project','Project');
 const input2 = createInput('update-project','text');
-
+wrapper3.appendChild(label2)
+wrapper3.appendChild(input2)
 const input3 = document.createElement('span')
 input3.id = 'update-start-time'
 
@@ -207,14 +226,11 @@ submit.textContent = 'Done'
 
 // append elements start from lowest child
 dialog.appendChild(dialogContent)
-dialogContent.appendChild(close);
-dialogContent.appendChild(remove);
+dialogContent.appendChild(wrapper1);
 dialogContent.appendChild(h2);
 dialogContent.appendChild(form);
-form.appendChild(label1);
-form.appendChild(input1)
-form.appendChild(label2);
-form.appendChild(input2)
+form.appendChild(wrapper2)
+form.appendChild(wrapper3)
 // form.appendChild(label3);
 form.appendChild(input3)
 form.appendChild(submit)
@@ -326,6 +342,9 @@ function createProjectFilterSelect() {
 const container = document.createElement('div')
 container.id = 'project-filter-container'
 
+const filterWrapper = document.createElement('div');
+filterWrapper.id = 'filter-wrapper'
+
 const label2 = createLabel('project-filter','Filter');
 const input2 = document.createElement('select')
 input2.classList.add('create-project');
@@ -338,8 +357,9 @@ const option2 = document.createElement('option');
 option2.value = 'create-project'
 option2.text = 'Create Project';
 
-container.appendChild(label2)
-container.appendChild(input2)
+container.appendChild(filterWrapper)
+filterWrapper.appendChild(label2)
+filterWrapper.appendChild(input2)
 input2.appendChild(option1)
 // input2.appendChild(option2)
 

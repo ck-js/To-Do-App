@@ -35,43 +35,24 @@ createTaskObject,
     
 } from './task-object-component'
 
-
-const allTasksArray = createArrayFactory();
-// allTasksArray.addItem(
-//             {
-//             description: 'build task item component and write a really long description so that we can see what the affect will be',
-//             project: 'Javascript',
-//             timeSpent: '00:28:23',
-//             msArray: [],
-    
-//         }
-// );
-// allTasksArray.addItem(
-//                 {
-//                 description: 'build to do task app',
-//                 project: 'Javascript',
-//                 timeSpent: '00:43:22',
-//             }
-// )
-
-
 // all dom related functions go here
 // append task items container to output
+const body = document.body;
 const output = document.getElementById('output')
+
 output.appendChild(taskItemsContainer())
-// append task items to task items container
-// output.appendChild(createTaskItem(allTasksArray.getArray()))
-// append form to html
-output.appendChild(createFormDialog())
-output.appendChild(updateFormDialog())
-output.appendChild(createProjectFormDialog())
-
-
-// append start stop button to body 
-output.appendChild(startStopButton())
 
 // append project filter feature to dom
 output.appendChild(createProjectFilterSelect())
+// append start stop button to body 
+body.appendChild(startStopButton())
+// append form to html
+body.insertBefore(createFormDialog(), output)
+body.appendChild(updateFormDialog())
+body.appendChild(createProjectFormDialog())
+
+
+
 
 // start btn event handler
 startBtnEventHandler()
@@ -99,100 +80,26 @@ const project = document.getElementById('update-project');
 project.value = selectedObject.project;
 
 openUpdateFormDialog()
-// populateFormInputs(currentTask)
-// console.log(currentTask);
+
     }
 
     if (event.target.matches('.task-component') &&
     event.target.textContent === 'Stop') {
 
-        removeTaskItemsFromContainer()
-        const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
-        const storedData = localStorage.getItem('allTasks')
-        const dataArray = JSON.parse(storedData);
-        const selectedObject = dataArray[shiftedIndex];
-
-        // set value to key of object in array
-        if (selectedObject.startTime){
-        const endTimeValue = new Date().getTime();
-        selectedObject.endTime = endTimeValue;
-
-        // get start and end time in milliseconds and push to array
-const elapsedTime = selectedObject.endTime - selectedObject.startTime;
-selectedObject.msArray.push(elapsedTime);
-console.log(elapsedTime);
-        
-selectedObject.startTime = null;
-
-// sum up milliseconds items in ms array
-let totalMilliseconds = 0;
-for (let i = 0; i < selectedObject.msArray.length; i++) {
-    totalMilliseconds += selectedObject.msArray[i];
-    
-}
-// set result to object property
-selectedObject.spentTime = totalMilliseconds;
-alert(totalMilliseconds);
-
-// display result on dom element 
-const previousSibling = event.target.previousSibling;
-previousSibling.textContent = totalMilliseconds;
-console.log(previousSibling);
-
-        }
-        event.target.textContent = 'Start';
-        
-       // convert array back into string
-       const updatedArrayString = JSON.stringify(dataArray)
-       
-       // store the updated array back into local storage
-       localStorage.setItem('allTasks', updatedArrayString)
-       
-       console.log(selectedObject);
-       console.log(dataArray);
-
-       updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
-
-// when we click update task element it populates the form element with the corresponding task from the local stroage object.
-// but for some reason if we close the form dialog it will change the text content of description to stop or start 
-// we want the start button to reset the corresponding task object with null 
-// then set the start time key value to a new date method
-// the stop button adds new date to the end time key value 
-// it then does some operations and calculations such as
-// store the difference in end and start time in milliseconds of the current key values
-// push the milliseconds value to the ms array 
-// loop through ms array and sum up all items 
-// store or update total time in milliseconds
-// get total time in milliseconds and convert to total seconds 
-// format total seconds into hour hour minute minute second second format
-// display formatted total time in the dom element
-// call function to repopulate the task items container with updated task elements
-
     } else {
-        // convert element id to array index value
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
-        // get the all tasks array storing task objects
         const storedData = localStorage.getItem('allTasks')
-        // convert stringed array to normal array
         const dataArray = JSON.parse(storedData);
-        // get the correlated task object
         const selectedObject = dataArray[shiftedIndex];
-
-        // set value to key of object in array
-const startTime = new Date().getTime();
- selectedObject.startTime = startTime;
-
-// convert array back into string
-const updatedArrayString = JSON.stringify(dataArray)
-
-// store the updated array back into local storage
-localStorage.setItem('allTasks', updatedArrayString)
-
-console.log(selectedObject);
-console.log(dataArray);
-
-        event.target.textContent = 'Stop';
         
+selectedObject.isComplete = true;
+
+
+        
+        
+
+
+
     }
 })
 }
@@ -499,15 +406,23 @@ projectFilterSelect.addEventListener('change', (event) => {
 // get the all tasks array
 const allTasksArray = JSON.parse(localStorage.getItem('allTasks'))
 
-
 const filteredObjects = [];
 // loop through all tasks array 
 for (let i = 0; i < allTasksArray.length; i++) {
     // const currentItem = allTasksArray[i];
+
+    // check if selected item value is all tasks
+    if (selectedItem === 'all-tasks') {
+        // add all tasks to filter array
+        filteredObjects.push(allTasksArray[i])
+    
+    }
+
+
     if (allTasksArray[i].project === selectedItem) {
         filteredObjects.push(allTasksArray[i])
     }
-console.log(filteredObjects);
+
 removeTaskItemsFromContainer();
 updateTasksContainer(filteredObjects)
 }
