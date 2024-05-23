@@ -84,7 +84,22 @@ openUpdateFormDialog()
     }
 
     if (event.target.matches('.task-component') &&
-    event.target.textContent === 'Stop') {
+    event.target.textContent === 'true') {
+        const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+        const storedData = localStorage.getItem('allTasks')
+        const dataArray = JSON.parse(storedData);
+        const selectedObject = dataArray[shiftedIndex];
+        
+selectedObject.isComplete = false;
+event.target.textContent = 'false'
+
+// Update the dataArray with the modified selectedObject
+dataArray[shiftedIndex] = selectedObject;
+
+// Stringify the dataArray and store it back into localStorage
+localStorage.setItem('allTasks', JSON.stringify(dataArray));
+
+console.log(JSON.parse(localStorage.getItem('allTasks')));
 
     } else {
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
@@ -93,11 +108,18 @@ openUpdateFormDialog()
         const selectedObject = dataArray[shiftedIndex];
         
 selectedObject.isComplete = true;
+event.target.textContent = 'true'
 
+// Update the dataArray with the modified selectedObject
+dataArray[shiftedIndex] = selectedObject;
 
-        
-        
+// Stringify the dataArray and store it back into localStorage
+localStorage.setItem('allTasks', JSON.stringify(dataArray));
 
+console.log(JSON.parse(localStorage.getItem('allTasks')));
+
+// read this tomorrow morning
+// note to self for tomorrow:  next feature to test is filter the task items by project and make update changes and see if it updates the correct task object in local storage.
 
 
     }
@@ -352,7 +374,7 @@ function clearLocalStorage() {
 
 // call on page load to display tasks in local storage
 // updateTasksContainer(JSON.parse(localStorage.allTasksArray))
-updateTasksContainer(JSON.parse(localStorage.allTasks))
+updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
 
 // function to start timer that takes object as argument
 function startTimer(object) {

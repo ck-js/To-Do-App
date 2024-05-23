@@ -79,7 +79,7 @@ const taskItemsContainer = document.getElementById(
         const div4 = document.createElement('div');
 div4.classList.add('task-component')
 div4.id = 'task-start';
-div4.textContent = 'Mark as complete';
+div4.textContent = item.isComplete;
 
 
 
