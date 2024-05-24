@@ -58,7 +58,7 @@ const taskItemsContainer = document.getElementById(
     
         const taskItemElement = document.createElement('div');
         taskItemElement.classList.add('task-item-element')
-        taskItemElement.id = i +1;
+        taskItemElement.id = item.id;
 
         const div = document.createElement('div');
         div.classList.add('task-item');
@@ -350,24 +350,23 @@ const input2 = document.createElement('select')
 input2.classList.add('create-project');
 input2.id = 'project-filter';
 
+
 const option1 = document.createElement('option');
-option1.value = 'all-tasks'
-option1.text = 'All Tasks';
+option1.value = 'default'
+option1.text = '-- Select Project --';
+
 const option2 = document.createElement('option');
-option2.value = 'create-project'
-option2.text = 'Create Project';
+option2.value = 'all-tasks'
+option2.text = 'All Tasks';
 
 container.appendChild(filterWrapper)
 filterWrapper.appendChild(label2)
 filterWrapper.appendChild(input2)
 input2.appendChild(option1)
-// input2.appendChild(option2)
+input2.appendChild(option2)
 
 return container;
 }
-
-
-
 
 
 

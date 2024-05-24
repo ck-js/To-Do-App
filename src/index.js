@@ -85,16 +85,22 @@ openUpdateFormDialog()
 
     if (event.target.matches('.task-component') &&
     event.target.textContent === 'true') {
-        const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+
+        // const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+        const domTaskId = +event.target.parentNode.id;
+
         const storedData = localStorage.getItem('allTasks')
         const dataArray = JSON.parse(storedData);
-        const selectedObject = dataArray[shiftedIndex];
+        // const selectedObject = dataArray[shiftedIndex];
+        const selectedObject = dataArray.find(obj => obj.id === domTaskId);
         
 selectedObject.isComplete = false;
 event.target.textContent = 'false'
 
 // Update the dataArray with the modified selectedObject
-dataArray[shiftedIndex] = selectedObject;
+// dataArray[] = selectedObject;
+let index = dataArray.findIndex(obj => obj.id === domTaskId) 
+dataArray[index] = selectedObject;
 
 // Stringify the dataArray and store it back into localStorage
 localStorage.setItem('allTasks', JSON.stringify(dataArray));
@@ -103,15 +109,22 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
 
     } else {
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+        const domTaskId = +event.target.parentNode.id;
+        
         const storedData = localStorage.getItem('allTasks')
         const dataArray = JSON.parse(storedData);
-        const selectedObject = dataArray[shiftedIndex];
-        
+        // const selectedObject = dataArray[shiftedIndex];
+const selectedObject = dataArray.find(obj => obj.id === domTaskId)
+
+alert(selectedObject.project);
+
 selectedObject.isComplete = true;
 event.target.textContent = 'true'
 
 // Update the dataArray with the modified selectedObject
-dataArray[shiftedIndex] = selectedObject;
+// dataArray[shiftedIndex] = selectedObject;
+let index = dataArray.findIndex(obj => obj.id === domTaskId) 
+dataArray[index] = selectedObject;
 
 // Stringify the dataArray and store it back into localStorage
 localStorage.setItem('allTasks', JSON.stringify(dataArray));
@@ -388,7 +401,7 @@ function handleProjectFilterSelect() {
     // get select element
 const selectElement = document.getElementById('project-filter')
 // remove children option elements 
-for (let i = selectElement.children.length -1; i >= 1; i--) {
+for (let i = selectElement.children.length -1; i >= 2; i--) {
 const child = selectElement.children[i];
 selectElement.removeChild(child)
 
@@ -415,8 +428,6 @@ uniqueValues.push(key)
 
 }
 
-
-
 }
 
 }
@@ -436,17 +447,19 @@ for (let i = 0; i < allTasksArray.length; i++) {
     // check if selected item value is all tasks
     if (selectedItem === 'all-tasks') {
         // add all tasks to filter array
-        filteredObjects.push(allTasksArray[i])
-    
+        // filteredObjects.push(allTasksArray[i])
+        
+        removeTaskItemsFromContainer()
+        updateTasksContainer(allTasksArray)
     }
-
-
-    if (allTasksArray[i].project === selectedItem) {
+if (allTasksArray[i].project === selectedItem) {
         filteredObjects.push(allTasksArray[i])
-    }
 
-removeTaskItemsFromContainer();
+        removeTaskItemsFromContainer();
 updateTasksContainer(filteredObjects)
+    }
+
+
 }
 
 
