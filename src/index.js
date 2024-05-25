@@ -10,7 +10,7 @@ createTaskItem,
 startStopButton,
 createFormDialog,
 openFormDialog,
-getCurrentHourAndMinute,
+
 removeTaskItemsFromContainer,
 updateTaskElements,
 updateTasksContainer,
@@ -62,22 +62,29 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
 // event handler for initiating updating task elements
 function updateTaskElementEventHandler() {
     const parentElement = document.getElementById('task-items-container')
+
 parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
 
-const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+// const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
+const domTaskId = +event.target.parentNode.id;
+
 const storedData = localStorage.getItem('allTasks')
 const dataArray = JSON.parse(storedData);
-const selectedObject = dataArray[shiftedIndex];
+// const selectedObject = dataArray[shiftedIndex];
+const selectedObject = dataArray.find(obj => obj.id === domTaskId)
 
 // set the current task object index value to local storage
-localStorage.setItem('currentTask', shiftedIndex)
+localStorage.setItem('currentTask', domTaskId)
 
 // retrieve local storage values to populate dom elements 
 const description = document.getElementById('update-description');
 description.value = selectedObject.description
 const project = document.getElementById('update-project');
 project.value = selectedObject.project;
+const date = document.getElementById('update-date');
+date.value = selectedObject.dueDate;
+
 
 openUpdateFormDialog()
 
@@ -116,7 +123,6 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
         // const selectedObject = dataArray[shiftedIndex];
 const selectedObject = dataArray.find(obj => obj.id === domTaskId)
 
-alert(selectedObject.project);
 
 selectedObject.isComplete = true;
 event.target.textContent = 'true'
@@ -164,10 +170,12 @@ localStorage.setItem(key, JSON.stringify(existingArray))
             const description = input1.value;
             const input2 = document.getElementById('create-project');
             const project = input2.value;
-            // const startTime = getCurrentHourAndMinute();
-        
+            const input3 = document.getElementById('create-date');
+            const date = input3.value;
+
+
         // create new task object
-        const task = createTaskObject(description,project)
+        const task = createTaskObject(description,project, date)
         // addTaskToAnArray(task,allTasksArray)
         // allTasksArray.addItem(task)
         // localStorage.setItem('allTasksArray', JSON.stringify(task))
@@ -200,9 +208,11 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
                 const description = input1.value;
                 const input2 = document.getElementById('update-project');
                 const project = input2.value;
-                
-// get index of current task
-const currentTask = localStorage.getItem('currentTask')
+                const input3 = document.getElementById('update-date');
+                const date = input3.value;
+
+// get id of current task
+const currentTaskId = localStorage.getItem('currentTask')
 
 // update the task object in local sstorage
         
@@ -211,12 +221,13 @@ const currentTask = localStorage.getItem('currentTask')
         // convert stringed array to normal array
         const dataArray = JSON.parse(storedData);
         // get the correlated task object
-        const selectedObject = dataArray[currentTask];
+        // const selectedObject = dataArray[currentTask];
+        const selectedObject = dataArray.find(obj => obj.id === +currentTaskId)
 
-        alert(currentTask)
         // set input values to local storage
  selectedObject.description = description;
  selectedObject.project = project;
+    selectedObject.dueDate = date;
 
 // convert array back into string
 const updatedArrayString = JSON.stringify(dataArray)

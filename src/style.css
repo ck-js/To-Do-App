@@ -44,9 +44,10 @@ padding-top: 20px;
     grid-column: 2/9;
 
 }
-#task-time-spent {
+#task-date {
     grid-row: 1;
-    grid-column: 9/10;
+    grid-column: 8/10;
+    
 }
 #task-start {
     grid-row: 2;
@@ -155,7 +156,10 @@ form button {
     background-color: black;
     color: white;
 }
-
+#create-date {
+    background-color: black;
+    color: white;
+}
 
 
 

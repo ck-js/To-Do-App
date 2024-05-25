@@ -2,18 +2,18 @@
 class Task {
     static idCounter = 1;
 
-    constructor(description, project) {
+    constructor(description, project, dueDate) {
         this.id = Task.idCounter++;
         this.description = description;
         this.project = project;
+        this.dueDate = dueDate;
         this.isComplete = false;
     }
 }
 
-function createTaskObject(description,project) {
-    const task = new Task(description,project)
+function createTaskObject(description,project, dueDate) {
+    const task = new Task(description,project, dueDate);
 
-    console.log(task);
     return task
 }
 function addTaskToAnArray(object, arrayName) {

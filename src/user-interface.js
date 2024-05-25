@@ -12,27 +12,6 @@ addTaskToAnArray,
 
 
 
-// get the current time in hours and minutes
-const now = new Date();
-const currentHour = now.getHours();
-const currentMinute = now.getMinutes();
-function getCurrentHourAndMinute() {
-    // const currentHourAndMinute = formatDistance(subDays(new Date(),6), new Date(), {addSuffix: true});
-// return currentHourAndMinute;
-// const stopwatch = new Stopwatch();
-
-// const start = stopwatch.start();
-
-// setTimeout(() => {
-//     stopwatch.stop();
-//     const elapsed = stopwatch.elapsed();
-    
-// }, 4000);
-
-return 'hello and goodbye depricated'
-
-}
-
 // click event listener for start button
 function startBtnEventHandler() {
 const startBtn = document.getElementById('start-stop-button')
@@ -51,8 +30,7 @@ return container;
 }
 // create task item
 function createTaskItem(array) {
-const taskItemsContainer = document.getElementById(
-    'task-items-container');
+const taskItemsContainer = document.getElementById('task-items-container');
    for (let i = 0;i < array.length; i++) {
         const item = array[i];
     
@@ -72,8 +50,8 @@ const taskItemsContainer = document.getElementById(
         
         const div3 = document.createElement('div');
         div3.classList.add('task-item');
-        div3.id = 'task-time-spent';
-        div3.textContent = item.spentTime;
+        div3.id = 'task-date';
+        div3.textContent = item.dueDate;
 
         // div for start and stop button
         const div4 = document.createElement('div');
@@ -150,8 +128,12 @@ option2.value = 'create-project'
 option2.text = 'Create Project';
 
 
-const input3 = document.createElement('span')
-input3.id = 'create-start-time'
+// const input3 = document.createElement('span')
+// input3.id = 'create-start-time'
+
+const input3 = createDateTimeInput('create-date');
+
+
 
 const submit = document.createElement('button')
 submit.type = 'submit';
@@ -216,8 +198,8 @@ const label2 = createLabel('update-project','Project');
 const input2 = createInput('update-project','text');
 wrapper3.appendChild(label2)
 wrapper3.appendChild(input2)
-const input3 = document.createElement('span')
-input3.id = 'update-start-time'
+
+const input3 = createDateTimeInput('update-date');
 
 const submit = document.createElement('button')
 submit.type = 'submit';
@@ -350,7 +332,6 @@ const input2 = document.createElement('select')
 input2.classList.add('create-project');
 input2.id = 'project-filter';
 
-
 const option1 = document.createElement('option');
 option1.value = 'default'
 option1.text = '-- Select Project --';
@@ -368,7 +349,21 @@ input2.appendChild(option2)
 return container;
 }
 
+// create method that creats du date label and input
+function createDateTimeInput(idAttribute) {
+    const dateWrapper = document.createElement('div');
+    dateWrapper.classList.add('form-wrappers');
 
+    const label = createLabel(idAttribute, 'Date');
+    const input = document.createElement('input');
+    input.id = idAttribute;
+    input.type = 'date';
+
+    dateWrapper.appendChild(label);
+    dateWrapper.appendChild(input);
+
+    return dateWrapper;
+}
 
 
 
@@ -383,7 +378,7 @@ openCreateFormDialog,
 openUpdateFormDialog,
 closeCreateDialog,
 closeUpdateDialog,
-getCurrentHourAndMinute,
+
 removeTaskItemsFromContainer,
 updateTasksContainer,
 createProjectFormDialog,
