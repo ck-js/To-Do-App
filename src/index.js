@@ -1,5 +1,5 @@
 import {
-format, setDayOfYear, startOfQuarter
+format, differenceInDays
 } from 'date-fns'
 
 import './style.css'
@@ -173,6 +173,15 @@ localStorage.setItem(key, JSON.stringify(existingArray))
             const input3 = document.getElementById('create-date');
             const date = input3.value;
 
+            // read this tomorrow morning
+            // abstract the below into a method that takes the due date and returns the days left until due date
+            // that we will call in the createTaskObject method
+// get the days left until due date
+const today = new Date();
+const dueDate = new Date(date);
+const daysLeft = differenceInDays(dueDate, today)
+
+const daysLeftMessage= `${daysLeft} days left until ${format(dueDate, 'MM/dd/yyyy')}`
 
         // create new task object
         const task = createTaskObject(description,project, date)
