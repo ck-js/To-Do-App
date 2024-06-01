@@ -68,6 +68,7 @@ parentElement.addEventListener('click', (event) => {
 
 // const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
 const domTaskId = +event.target.parentNode.id;
+alert(domTaskId + ' is the id key')
 
 const storedData = localStorage.getItem('allTasks')
 const dataArray = JSON.parse(storedData);
@@ -173,18 +174,14 @@ localStorage.setItem(key, JSON.stringify(existingArray))
             const input3 = document.getElementById('create-date');
             const date = input3.value;
 
-            // read this tomorrow morning
-            // abstract the below into a method that takes the due date and returns the days left until due date
-            // that we will call in the createTaskObject method
-// get the days left until due date
-const today = new Date();
-const dueDate = new Date(date);
-const daysLeft = differenceInDays(dueDate, today)
+            const daysLeft = daysLeftUntilDueDate(date)
 
-const daysLeftMessage= `${daysLeft} days left until ${format(dueDate, 'MM/dd/yyyy')}`
+
 
         // create new task object
         const task = createTaskObject(description,project, date)
+        // task.daysLeft = daysLeft;
+
         // addTaskToAnArray(task,allTasksArray)
         // allTasksArray.addItem(task)
         // localStorage.setItem('allTasksArray', JSON.stringify(task))
@@ -205,8 +202,7 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
         closeCreateDialog();
                 
             }
-        
-
+         
             // event handler for submit update
             function handleUpdateFormSubmit(event) {
                 event.preventDefault();
@@ -219,7 +215,7 @@ console.log(JSON.parse(localStorage.getItem('allTasks')));
                 const project = input2.value;
                 const input3 = document.getElementById('update-date');
                 const date = input3.value;
-
+const daysLeft = daysLeftUntilDueDate(date)
 // get id of current task
 const currentTaskId = localStorage.getItem('currentTask')
 
@@ -237,7 +233,9 @@ const currentTaskId = localStorage.getItem('currentTask')
  selectedObject.description = description;
  selectedObject.project = project;
     selectedObject.dueDate = date;
+    selectedObject.daysLeft = daysLeft;
 
+    
 // convert array back into string
 const updatedArrayString = JSON.stringify(dataArray)
 
@@ -289,10 +287,15 @@ closeCreateFormDialog();
 function closeUpdateFormDialog() {
     const element = document.getElementById('update-close');
     element.addEventListener('click', () => {
+        
+
 closeUpdateDialog();
+
+
+alert('update close event handler')
     })
 }
-closeUpdateFormDialog();
+closeUpdateFormDialog()
 
 // event handler for deleting a task object
 const deleteButton = document.getElementById('update-delete');
@@ -486,9 +489,18 @@ updateTasksContainer(filteredObjects)
     
     });
 
+function daysLeftUntilDueDate(dueDate) {
+    const targetDate = new Date(dueDate);
+    const currentDate = new Date();
+    const daysLeft = differenceInDays(targetDate, currentDate);
+
+    return daysLeft
+}   
+
+
+
 
 // clearLocalStorage()
-
 
 
 console.log(JSON.parse(localStorage.allTasks));

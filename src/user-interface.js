@@ -51,8 +51,12 @@ const taskItemsContainer = document.getElementById('task-items-container');
         const div3 = document.createElement('div');
         div3.classList.add('task-item');
         div3.id = 'task-date';
-        div3.textContent = item.dueDate;
+        if (!item.daysLeft) {
+div3.textContent = '';
+        } else {
+        div3.textContent = `${item.daysLeft} days left`;
 
+        }
         // div for start and stop button
         const div4 = document.createElement('div');
 div4.classList.add('task-component')
@@ -290,6 +294,9 @@ function closeCreateDialog() {
 }
 function closeUpdateDialog() {
     const dialog = document.getElementById('update-dialog')
+    
+    removeTaskItemsFromContainer()
+    updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
     dialog.close()
 }
 function openCreateProjectFormDialog() {
@@ -314,6 +321,7 @@ container.removeChild(child)
 }
 // function to update the tasks container elements
 function updateTasksContainer(arrayName) {
+
 const update = output.appendChild(createTaskItem(arrayName))
 
 return update;
