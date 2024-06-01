@@ -65,7 +65,6 @@ function updateTaskElementEventHandler() {
 
 parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
-
 // const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
 const domTaskId = +event.target.parentNode.id;
 alert(domTaskId + ' is the id key')
@@ -103,7 +102,7 @@ openUpdateFormDialog()
         const selectedObject = dataArray.find(obj => obj.id === domTaskId);
         
 selectedObject.isComplete = false;
-event.target.textContent = 'false'
+// event.target.textContent = 'false'
 
 // Update the dataArray with the modified selectedObject
 // dataArray[] = selectedObject;
@@ -113,9 +112,12 @@ dataArray[index] = selectedObject;
 // Stringify the dataArray and store it back into localStorage
 localStorage.setItem('allTasks', JSON.stringify(dataArray));
 
-console.log(JSON.parse(localStorage.getItem('allTasks')));
+removeTaskItemsFromContainer();
+updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')));
 
-    } else {
+    } 
+    if (event.target.matches('.task-component') &&
+    event.target.textContent === 'false') {
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
         const domTaskId = +event.target.parentNode.id;
         
@@ -126,7 +128,7 @@ const selectedObject = dataArray.find(obj => obj.id === domTaskId)
 
 
 selectedObject.isComplete = true;
-event.target.textContent = 'true'
+// event.target.textContent = 'true'
 
 // Update the dataArray with the modified selectedObject
 // dataArray[shiftedIndex] = selectedObject;
@@ -136,16 +138,19 @@ dataArray[index] = selectedObject;
 // Stringify the dataArray and store it back into localStorage
 localStorage.setItem('allTasks', JSON.stringify(dataArray));
 
-console.log(JSON.parse(localStorage.getItem('allTasks')));
-
-// read this tomorrow morning
-// note to self for tomorrow:  next feature to test is filter the task items by project and make update changes and see if it updates the correct task object in local storage.
+removeTaskItemsFromContainer();
+updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')));
 
 
     }
 })
 }
 updateTaskElementEventHandler()
+
+
+
+
+
 
 // function to add object to local storage array
 function addObjectToLocalStorageArray(key, object) {
@@ -285,15 +290,37 @@ closeCreateFormDialog();
 
 // event handler for closing update form dialog
 function closeUpdateFormDialog() {
+    const updateDialog = document.getElementById('update-dialog')
     const element = document.getElementById('update-close');
     element.addEventListener('click', () => {
         
-
 closeUpdateDialog();
-
-
 alert('update close event handler')
     })
+// rule for escape key event 
+updateDialog.addEventListener('keydown', (event) => {
+if (event.key === 'Escape' || event.key === 'Esc') {
+    event.preventDefault();
+    alert('Escape key was presssed down')
+    closeUpdateDialog()
+}
+// check if event target is click on backdrop
+updateDialog.addEventListener('click', (event) => {
+if (event.target === updateDialog) {
+alert('backdrop clicked')
+closeUpdateDialog()
+
+}
+
+})
+
+
+
+
+})
+
+
+
 }
 closeUpdateFormDialog()
 
