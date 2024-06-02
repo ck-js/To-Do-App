@@ -322,9 +322,17 @@ container.removeChild(child)
 // function to update the tasks container elements
 function updateTasksContainer(arrayName) {
 
+const selectElement = document.getElementById('project-filter')
+const selectedValue = selectElement.value;
+
+
+
+if (selectedValue === 'default') {
+    alert(selectedValue)
 const update = output.appendChild(createTaskItem(arrayName))
 
 return update;
+}
 
 }
 // project filter select dom element
