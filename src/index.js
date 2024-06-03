@@ -330,11 +330,14 @@ deleteButton.addEventListener('click', (event) => {
 
     removeTaskItemsFromContainer();
     const currentTask = localStorage.getItem('currentTask');
+// const domTaskId = event.target.parentNode.id;
+alert(currentTask)
     const storedData = localStorage.getItem('allTasks')
     const dataArray = JSON.parse(storedData);
-    const selectedObject = dataArray[currentTask];
+    // const selectedObject = dataArray[currentTask];
+    const selectedObject = dataArray.find(obj => obj.id === +currentTask)
 // remove object from array
-dataArray.splice(currentTask,1)
+dataArray.splice(selectedObject,1)
 console.log(dataArray);
 
 // convert array back into string

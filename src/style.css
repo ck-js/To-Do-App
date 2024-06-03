@@ -96,7 +96,7 @@ background-color: black;
     /* Add width and height if needed */
     width: 80%;
     padding-bottom: 20px;
-    
+z-index: 999;    
 }
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
