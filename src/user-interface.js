@@ -324,17 +324,21 @@ function updateTasksContainer(arrayName) {
 
 const selectElement = document.getElementById('project-filter')
 const selectedValue = selectElement.value;
+alert(selectedValue)
 
-
-
-if (selectedValue === 'default') {
+if (selectedValue === 'default' || selectedValue === 'all-tasks') {
     alert(selectedValue)
 const update = output.appendChild(createTaskItem(arrayName))
-
 return update;
 }
-
+else {
+    const filteredArray = arrayName.filter(task => task.project === selectedValue);
+    const update = output.appendChild(createTaskItem(filteredArray));
+    return update;
 }
+}
+
+
 // project filter select dom element
 function createProjectFilterSelect() {
 const container = document.createElement('div')

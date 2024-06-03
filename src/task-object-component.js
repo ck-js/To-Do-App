@@ -1,6 +1,5 @@
-
 class Task {
-    static idCounter = 1;
+    static idCounter = localStorage.getItem('idCounter') || 1;
 
     constructor(description, project, dueDate) {
         this.id = Task.idCounter++;
@@ -8,8 +7,13 @@ class Task {
         this.project = project;
         this.dueDate = dueDate;
         this.isComplete = false;
+
+        // Save the updated idCounter to localStorage
+        localStorage.setItem('idCounter', Task.idCounter);
     }
 }
+
+
 
 function createTaskObject(description,project, dueDate) {
     const task = new Task(description,project, dueDate);
