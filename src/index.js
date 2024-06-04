@@ -44,12 +44,17 @@ output.appendChild(taskItemsContainer())
 
 // append project filter feature to dom
 output.appendChild(createProjectFilterSelect())
+
 // append start stop button to body 
-body.appendChild(startStopButton())
+output.appendChild(startStopButton())
+
+
 // append form to html
 body.insertBefore(createFormDialog(), output)
-body.appendChild(updateFormDialog())
-body.appendChild(createProjectFormDialog())
+body.insertBefore(updateFormDialog(), output)
+body.insertBefore(createProjectFormDialog(), output)
+// body.appendChild(())
+// body.appendChild(createProjectFormDialog())
 
 
 
@@ -67,7 +72,7 @@ parentElement.addEventListener('click', (event) => {
     if (event.target.matches('.task-item')) {
 // const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
 const domTaskId = +event.target.parentNode.id;
-alert(domTaskId + ' is the id key')
+
 
 const storedData = localStorage.getItem('allTasks')
 const dataArray = JSON.parse(storedData);
@@ -85,13 +90,12 @@ project.value = selectedObject.project;
 const date = document.getElementById('update-date');
 date.value = selectedObject.dueDate;
 
-
 openUpdateFormDialog()
 
     }
 
     if (event.target.matches('.task-component') &&
-    event.target.textContent === 'true') {
+    event.target.textContent === 'Completed') {
 
         // const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
         const domTaskId = +event.target.parentNode.id;
@@ -117,7 +121,7 @@ updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')));
 
     } 
     if (event.target.matches('.task-component') &&
-    event.target.textContent === 'false') {
+    event.target.textContent === 'Mark Complete') {
         const shiftedIndex = downShiftIdToArrayIndex(event.target.parentNode.id);
         const domTaskId = +event.target.parentNode.id;
         
@@ -181,8 +185,6 @@ localStorage.setItem(key, JSON.stringify(existingArray))
 
             const daysLeft = daysLeftUntilDueDate(date)
 
-
-
         // create new task object
         const task = createTaskObject(description,project, date)
         // task.daysLeft = daysLeft;
@@ -194,8 +196,7 @@ addObjectToLocalStorageArray('allTasks', task)
 
 console.log(JSON.parse(localStorage.getItem('allTasks')));
 
-        alert('creation event handler')
-            
+
         // update dom with new task
             // updateTasksContainer(allTasksArray.getArray())
             updateTasksContainer(JSON.parse(localStorage.allTasks))
@@ -251,7 +252,6 @@ console.log(selectedObject);
 console.log(dataArray);
 
 
-alert('update event handler')
 
         updateTasksContainer(JSON.parse(localStorage.getItem('allTasks')))
             
@@ -295,19 +295,17 @@ function closeUpdateFormDialog() {
     element.addEventListener('click', () => {
         
 closeUpdateDialog();
-alert('update close event handler')
     })
 // rule for escape key event 
 updateDialog.addEventListener('keydown', (event) => {
 if (event.key === 'Escape' || event.key === 'Esc') {
     event.preventDefault();
-    alert('Escape key was presssed down')
+
     closeUpdateDialog()
 }
 // check if event target is click on backdrop
 updateDialog.addEventListener('click', (event) => {
 if (event.target === updateDialog) {
-alert('backdrop clicked')
 closeUpdateDialog()
 
 }
@@ -331,7 +329,6 @@ deleteButton.addEventListener('click', (event) => {
     removeTaskItemsFromContainer();
     const currentTask = localStorage.getItem('currentTask');
 // const domTaskId = event.target.parentNode.id;
-alert(currentTask)
     const storedData = localStorage.getItem('allTasks')
     const dataArray = JSON.parse(storedData);
     // const selectedObject = dataArray[currentTask];
@@ -411,7 +408,6 @@ selectElement.appendChild(optionElement)
 selectElement.addEventListener('change', (event) => {
 const selectedElement = event.target.value;
 if (selectedElement === 'create-project'){
-    alert(selectedElement)
 openCreateProjectFormDialog()
 
 }
@@ -530,7 +526,12 @@ function daysLeftUntilDueDate(dueDate) {
 
 
 
+
+
+
+
+
+
+
 // clearLocalStorage()
-
-
 console.log(JSON.parse(localStorage.allTasks));

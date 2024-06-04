@@ -36,6 +36,7 @@ const taskItemsContainer = document.getElementById('task-items-container');
     
         const taskItemElement = document.createElement('div');
         taskItemElement.classList.add('task-item-element')
+
         taskItemElement.id = item.id;
 
         const div = document.createElement('div');
@@ -61,10 +62,14 @@ div3.textContent = '';
         const div4 = document.createElement('div');
 div4.classList.add('task-component')
 div4.id = 'task-start';
-div4.textContent = item.isComplete;
+if (!item.isComplete) {    
+    div4.textContent = 'Mark Complete';
 
-
-
+}
+if (item.isComplete) {
+div4.textContent = 'Completed';
+taskItemElement.classList.add('complete')
+}
         taskItemElement.appendChild(div)
         taskItemElement.appendChild(div2)
         taskItemElement.appendChild(div3)
@@ -324,10 +329,8 @@ function updateTasksContainer(arrayName) {
 
 const selectElement = document.getElementById('project-filter')
 const selectedValue = selectElement.value;
-alert(selectedValue)
 
 if (selectedValue === 'default' || selectedValue === 'all-tasks') {
-    alert(selectedValue)
 const update = output.appendChild(createTaskItem(arrayName))
 return update;
 }
