@@ -187,7 +187,7 @@ localStorage.setItem(key, JSON.stringify(existingArray))
 
         // create new task object
         const task = createTaskObject(description,project, date)
-        // task.daysLeft = daysLeft;
+        task.daysLeft = daysLeft;
 
         // addTaskToAnArray(task,allTasksArray)
         // allTasksArray.addItem(task)

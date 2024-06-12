@@ -13,8 +13,6 @@ class Task {
     }
 }
 
-
-
 function createTaskObject(description,project, dueDate) {
     const task = new Task(description,project, dueDate);
 
