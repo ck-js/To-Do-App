@@ -205,17 +205,8 @@ form button {
 
 
 @media (max-width: 767px) {
-#task-items-container {
 
-    width: 100%;
-    overflow: scroll;
-
-    }
-    .task-item-element {
-        height: auto;
-row-gap: 25px;
-
-    }
+    
     #task-date {
         font-size: 12px;
     }

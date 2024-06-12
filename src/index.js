@@ -40,10 +40,12 @@ createTaskObject,
 const body = document.body;
 const output = document.getElementById('output')
 
-output.appendChild(taskItemsContainer())
-
 // append project filter feature to dom
 output.appendChild(createProjectFilterSelect())
+
+output.appendChild(taskItemsContainer())
+
+
 
 // append start stop button to body 
 output.appendChild(startStopButton())
